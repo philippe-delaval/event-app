@@ -1,0 +1,29 @@
+services:
+  web:
+    image: node:20
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: npm run dev
+    ports:
+      - 127.0.0.1:3000:3000
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    ports:
+    - 127.0.0.1:5432:5432
+  adminer:
+    image: adminer:latest
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+volumes:
+  pgdata:
