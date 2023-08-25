@@ -1,5 +1,5 @@
-import Navigation from "@/app/(nomduprojet)/_components/navigation/navigation";
-import Footer from "@/app/(nomduprojet)/_components/footer/footer";
+import Navigation from "@/app/(public)/_components/navigation/navigation";
+import Footer from "@/app/(public)/_components/footer/footer";
 import React from "react";
 
 export default function HomePageLayout({

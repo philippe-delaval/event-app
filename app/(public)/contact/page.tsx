@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Switch } from '@headlessui/react'
 // @ts-ignore
 import { useForm } from 'react-hook-form';
-import AlertSendMessage from '@/app/(nomduprojet)/_components/alertsendmessage/alertsendmessage'
+import AlertSendMessage from '@/app/(public)/_components/alertsendmessage/alertsendmessage'
 
 
 function classNames(...classes: string[]) {

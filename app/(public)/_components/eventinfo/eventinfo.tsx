@@ -1,6 +1,6 @@
-import Countdown from "@/app/(nomduprojet)/_components/countdown/countdown";
-import Counter from "@/app/(nomduprojet)/_components/counter/counter";
-import Sponsors from "@/app/(nomduprojet)/_components/sponsors/sponsors";
+import Countdown from "@/app/(public)/_components/countdown/countdown";
+import Counter from "@/app/(public)/_components/counter/counter";
+import Sponsors from "@/app/(public)/_components/sponsors/sponsors";
 import {
     CalendarIcon,
     MapPinIcon,
