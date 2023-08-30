@@ -5,9 +5,11 @@ import { CalendarIcon, MapPinIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import PropTypes from "prop-types";
 import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 import React, { useEffect, useState } from "react";
+import { AppEvent } from "../../../../core/entities/app_event";
 
 type EventInfoProps = {
   formRef: React.RefObject<HTMLDivElement>;
+  nextAppEvent: AppEvent;
 };
 
 EventInfo.propTypes = {
@@ -17,7 +19,7 @@ EventInfo.propTypes = {
   ]).isRequired,
 };
 
-function EventInfo({ formRef }: EventInfoProps) {
+function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleLinkClick = (
@@ -131,7 +133,7 @@ function EventInfo({ formRef }: EventInfoProps) {
               ></iframe>
               <div className="w-full flex-auto">
                 <h2 className="font-bebas text-6xl tracking-tight text-black sm:text-8xl">
-                  &lt;/Apéro Dev &gt;
+                  {nextAppEvent.name}
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-primary-gray">
                   L&#39; apéro développeur en plein coeur de Strasbourg.
