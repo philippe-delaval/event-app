@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 import React, { useEffect, useState } from "react";
 import { AppEvent } from "@/core/entities/app_event";
+import FormattedDate from "@/app/(public)/_components/date-formatted/date-formated";
 
 type EventInfoProps = {
   formRef: React.RefObject<HTMLDivElement>;
@@ -114,7 +115,7 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
         </div>
       )}
       {/* Countdown Area */}
-      <Countdown targetDate="2023-09-01T00:00:00" />
+      <Countdown targetDate={nextAppEvent.begin_date.toString()} />
 
       {/* Banner Area */}
       <div className="bg-background-grey">
@@ -136,7 +137,7 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
                   {nextAppEvent.name}
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-primary-gray">
-                  L&#39; apéro développeur en plein coeur de Strasbourg.
+                  {nextAppEvent.description}
                 </p>
                 <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
                   <div className="mt-2 flex items-center text-sm text-primary-gray">
@@ -151,7 +152,18 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
                       className="mr-1.5 h-5 w-5 flex-shrink-0 text-primary-orange"
                       aria-hidden="true"
                     />
-                    01 Septembre 2023
+
+                    <FormattedDate
+                      date={new Date(nextAppEvent.begin_date)}
+                      options={{
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">

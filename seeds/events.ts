@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
       id: 1,
       name: "</Apéro Dev >",
       description: "L'apéro développeur en plein coeur de Strasbourg.",
-      begin_date: new Date("2023-09-30T18:30:00.000Z"),
+      begin_date: new Date("2023-09-30T18:30:00.000+02:00"),
     },
   ]);
 }
