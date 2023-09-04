@@ -13,6 +13,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      TZ: Europe/Paris
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
