@@ -3,15 +3,15 @@ import { Knex, knex } from "knex";
 export function makeKnexClient(): Knex {
   return knex({
     client: "pg",
-    connection: getPgConnectionString(),
+    connection: getPostgresUrl(),
     searchPath: ["knex", "public"],
   });
 }
 
-function getPgConnectionString() {
-  if (!process.env.PG_CONNECTION_STRING) {
-    throw new Error("PG_CONNECTION_STRING not set");
+function getPostgresUrl() {
+  if (!process.env.POSTGRES_URL) {
+    throw new Error("POSTGRES_URL not set");
   }
 
-  return process.env.PG_CONNECTION_STRING;
+  return process.env.POSTGRES_URL;
 }
