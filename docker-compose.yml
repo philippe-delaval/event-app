@@ -6,6 +6,8 @@ services:
     volumes:
       - .:/app
     command: npm run dev
+    environment:
+      - POSTGRES_URL=postgresql://postgres:example@db/postgres
     ports:
       - "127.0.0.1:3000:3000"
   db:
