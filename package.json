@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "knex migrate:up",
+    "db:seed": "knex seed:run",
+    "db:setup": "npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
