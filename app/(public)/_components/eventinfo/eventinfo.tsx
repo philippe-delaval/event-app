@@ -2,7 +2,7 @@ import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import PropTypes from "prop-types";
 import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 import React, { useEffect, useState } from "react";
-import { AppEvent } from "@/core/entities/app_event";
+import { AppEvent } from "@/core/models/app_event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
 import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
 
@@ -22,7 +22,7 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
   const [dataEdition, setDataEdition] = useState("");
 
   const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
     if (formRef.current) {

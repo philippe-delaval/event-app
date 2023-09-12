@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { AppEvent } from "../entities/app_event";
+import { AppEvent } from "../models/app_event";
 
 export class AppEventsRepository {
   constructor(private knex: Knex) {}

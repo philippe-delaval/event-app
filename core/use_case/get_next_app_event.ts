@@ -1,4 +1,4 @@
-import { AppEvent } from "../entities/app_event";
+import { AppEvent } from "../models/app_event";
 import { makeKnexClient } from "../lib/knex";
 import { AppEventsRepository } from "../repositories/app_events_repository";
 
