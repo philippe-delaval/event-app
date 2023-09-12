@@ -14,12 +14,10 @@ npm install
 docker compose up
 ```
 
-Au premier lancement de l'application, pour créer le schéma et insérer les données nécessaires dans la BDD :
+À noter qu'il est nécessaire de lancer ces commandes à chaque fois qu'on pull de nouvelles migrations (dossier `migrations`) ou de nouveaux seeds (dossier `seeds`).
 
 ```bash
 npm i -g knex # À faire si le CLI knex n'est pas installé en local
 knex migrate:up
 knex seed:run
 ```
-
-À noter qu'il est nécessaire de lancer ces commandes à chaque fois qu'on pull de nouvelles migrations (dossier `migrations`) ou de nouveaux seeds (dossier `seeds`).
