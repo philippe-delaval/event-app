@@ -7,14 +7,27 @@ services:
       - .:/app
     command: npm run dev
     ports:
-      - 127.0.0.1:3000:3000
+      - "127.0.0.1:3000:3000"
   db:
     image: postgres:15
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      TZ: Europe/Paris
     volumes:
-    - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+  db-setup:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: npm run db:setup
+    environment:
+      DB_HOST: db
+    depends_on:
+      - db
   adminer:
     image: adminer:latest
     ports:
