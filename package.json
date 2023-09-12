@@ -9,7 +9,8 @@
     "lint": "next lint",
     "db:migrate": "knex migrate:up",
     "db:seed": "knex seed:run",
-    "db:setup": "npm run db:migrate && npm run db:seed"
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
+    "husky": "^8.0.0",
     "prettier": "3.0.1"
   }
 }
