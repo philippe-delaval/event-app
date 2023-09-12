@@ -3,7 +3,12 @@ import { Knex, knex } from "knex";
 export function makeKnexClient(): Knex {
   return knex({
     client: "pg",
-    connection: getPostgresUrl(),
+    connection: {
+      connectionString: getPostgresUrl(),
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
     searchPath: ["knex", "public"],
   });
 }
