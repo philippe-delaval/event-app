@@ -1,7 +1,13 @@
 import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex("events").upsert([
+  const event = await knex("events").where({ id: 1 }).first();
+
+  if (event) {
+    return;
+  }
+
+  await knex("events").insert([
     {
       id: 1,
       name: "</Apéro Dev >",
