@@ -18,13 +18,16 @@ const config: { [key: string]: Knex.Config } = {
     },
   },
 
-  // TODO add production config for first deployment
   production: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
+      host: process.env.POSTGRES_HOST,
+      database: process.env.POSTGRES_DATABASE,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     },
     pool: {
       min: 2,
