@@ -1,18 +1,12 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 // les deux lignes suivantes servent à gérer l'affichage de la boite de dialogue
-export default function AlertSendMessage({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: () => void;
-}) {
-  // const [open, setOpen] = useState(true)
+export default function AlertSendMessage() {
+  const [open, setOpen] = useState(true);
 
   return (
     <Transition.Root show={open} as={Fragment}>
