@@ -9,11 +9,11 @@ export default function EventNo() {
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Nous sommes désolés,
               <br />
-              il n'y a pas d'évènement prévu pour le moment.
+              il n&apos;y a pas d&apos;évènement prévu pour le moment.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-              N'hésitez pas à revenir plus tard pour voir si un nouvel évènement
-              a été ajouté.
+              N&apos;hésitez pas à revenir plus tard pour voir si un nouvel
+              évènement a été ajouté.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a

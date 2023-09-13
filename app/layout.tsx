@@ -1,26 +1,25 @@
-import '../styles/globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import React from "react";
+import "../styles/globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'NoName Project',
-  description: 'Created By David.R & Philippe.D',
-}
+  title: "Event App",
+  description: "Created By David.R & Philippe.D",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-    <>
-      <body className={inter.className}>
-      {children}
-      </body>
-    </>
+    <html lang="fr">
+      <>
+        <body className={inter.className}>{children}</body>
+      </>
     </html>
-  )
+  );
 }

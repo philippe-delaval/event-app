@@ -19,7 +19,7 @@ EventInfo.propTypes = {
 };
 
 function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
-  const [dataEdition, setDataEdition] = useState("");
+  const [, setDataEdition] = useState("");
 
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
