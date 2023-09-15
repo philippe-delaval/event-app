@@ -1,5 +1,4 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
-import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 import React, { useEffect, useState } from "react";
 import { AppEvent } from "@/core/models/app_event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
@@ -10,20 +9,8 @@ type EventInfoProps = {
   nextAppEvent: AppEvent;
 };
 
-function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
+function EventInfo({ nextAppEvent }: EventInfoProps) {
   const [, setDataEdition] = useState("");
-
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    if (formRef.current) {
-      smoothScrollIntoView(formRef.current, {
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
 
   useEffect(() => {
     const fetchEdition = async () => {
@@ -90,7 +77,6 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
                 <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                   <a
                     href="#"
-                    onClick={handleLinkClick}
                     className="rounded-md bg-primary-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     Réservez votre billet !
