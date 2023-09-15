@@ -6,6 +6,7 @@ import { HomeBody } from "./_components/home/body";
 import { AppEvent } from "@/core/models/app_event";
 import EventNo from "@/app/(public)/_components/event-no/event-no";
 
+
 export const dynamic = "force-dynamic";
 
 export default async function HomePageLayout() {
