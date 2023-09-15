@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
-import PropTypes from "prop-types";
 import Counter from "@/app/(public)/_components/counter/counter";
 
 type AdBannerProps = {
   formRef: React.RefObject<any>;
 };
 
-AdBanner.propTypes = {
-  formRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
-};
 
 function AdBanner({ formRef }: AdBannerProps) {
   const [isVisible, setIsVisible] = useState(true);

@@ -1,5 +1,4 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
-import PropTypes from "prop-types";
 import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
 import React, { useEffect, useState } from "react";
 import { AppEvent } from "@/core/models/app_event";
@@ -9,13 +8,6 @@ import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
 type EventInfoProps = {
   formRef: React.RefObject<any>;
   nextAppEvent: AppEvent;
-};
-
-EventInfo.propTypes = {
-  formRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
 };
 
 function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
