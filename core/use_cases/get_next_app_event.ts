@@ -7,9 +7,11 @@ const knexClient = makeKnexClient();
 export async function getNextAppEvent(): Promise<AppEvent> {
   const appEventsRepository = new AppEventsRepository(knexClient);
   const appEvent = await appEventsRepository.findNextAppEvent();
+
   if (!appEvent) {
     throw new NextAppEventNotFoundError();
   }
+
   return appEvent;
 }
 
