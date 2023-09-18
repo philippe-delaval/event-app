@@ -1,6 +1,16 @@
 import { Knex, knex } from "knex";
 
-export function makeKnexClient(): Knex {
+let knexClient: Knex;
+
+export function getKnexClient(): Knex {
+  if (!knexClient) {
+    knexClient = makeKnexClient();
+  }
+
+  return knexClient;
+}
+
+function makeKnexClient(): Knex {
   return knex({
     client: "pg",
     connection: {
