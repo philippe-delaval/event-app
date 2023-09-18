@@ -10,6 +10,18 @@ export function getKnexClient(): Knex {
   return knexClient;
 }
 
+export async function makeTestKnexClient(): Knex {
+  const inMemoryClient = knex({
+    client: "sqlite3",
+    connection: ":memory:",
+    useNullAsDefault: true,
+  });
+
+  await inMemoryClient.migrate.latest();
+
+  return inMemoryClient;
+}
+
 function makeKnexClient(): Knex {
   return knex({
     client: "pg",
