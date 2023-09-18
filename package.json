@@ -10,7 +10,8 @@
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
     "db:setup": "npm run db:migrate && npm run db:seed",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "vitest"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
@@ -39,6 +40,7 @@
     "eslint": "^8.49.0",
     "eslint-config-next": "^13.4.19",
     "husky": "^8.0.0",
-    "prettier": "3.0.1"
+    "prettier": "3.0.1",
+    "vitest": "^0.34.4"
   }
 }
