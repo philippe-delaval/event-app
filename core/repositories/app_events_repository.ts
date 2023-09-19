@@ -2,7 +2,7 @@ import { Knex } from "knex";
 import { AppEvent } from "../models/app_event";
 
 export class AppEventsRepository {
-  constructor(private knex: Knex) {}
+  constructor(private readonly knex: Knex) {}
 
   async findNextAppEvent(): Promise<AppEvent | null> {
     const [appEvent] = await this.knex("events")
