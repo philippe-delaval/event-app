@@ -2,8 +2,8 @@ name: Quality Checks
 on:
   pull_request:
 jobs:
-  lint:
-    name: Lint
+  lint-test:
+    name: Lint & test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,3 +12,4 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run lint
+      - run: npm run test
