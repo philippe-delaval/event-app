@@ -3,6 +3,7 @@ import React from "react";
 import { AppEvent } from "@/core/models/app_event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
 import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
+import Link from "next/link";
 
 type EventInfoProps = {
   nextAppEvent: AppEvent;
@@ -52,12 +53,12 @@ function EventInfo({ nextAppEvent }: EventInfoProps) {
                   </div>
                 </div>
                 <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                  <a
-                    href="#"
+                  <Link
+                    href="/inscription"
                     className="rounded-md bg-primary-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     Réservez votre billet !
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

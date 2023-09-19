@@ -23,7 +23,7 @@ const FormattedDate: React.FC<FormattedDateProps> = ({ date }) => {
     minute: "2-digit",
   };
 
-  const formattedDate = jsDate.toLocaleString(undefined, options);
+  const formattedDate = jsDate.toLocaleString("fr", options);
 
   return <span>{`Le ${formattedDate}`}</span>;
 };
