@@ -1,5 +1,4 @@
 import EventInfo from "../eventinfo/eventinfo";
-import FormInscription from "../form-inscription/form-inscription";
 import { AppEvent } from "@/core/models/app_event";
 import AdBanner from "@/app/(public)/_components/adbanner/adbanner";
 import Countdown from "@/app/(public)/_components/countdown/countdown";
@@ -12,7 +11,6 @@ export const HomeBody = ({ nextAppEvent }: { nextAppEvent: AppEvent }) => {
       <Countdown targetDate={nextAppEvent.begin_date.toString()} />
       <EventInfo nextAppEvent={nextAppEvent} />
       <Sponsors />
-      <FormInscription />
     </>
   );
 };

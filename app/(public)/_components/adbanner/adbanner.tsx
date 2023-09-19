@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Counter from "@/app/(public)/_components/counter/counter";
+import Link from "next/link";
 
 function AdBanner() {
   const [isVisible, setIsVisible] = useState(true);
@@ -42,12 +43,12 @@ function AdBanner() {
                 <Counter /> places !
               </strong>
             </p>
-            <a
-              href="#"
+            <Link
+              href="/inscription"
               className="flex-none rounded-full bg-primary-orange px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
             >
               C&#39;est par ici <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
           <div className="flex flex-1 justify-end">
             <button
