@@ -1,13 +1,10 @@
+"use client";
+
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Counter from "@/app/(public)/_components/counter/counter";
 
-type AdBannerProps = {
-  formRef: React.RefObject<any>;
-};
-
-// eslint-disable-next-line no-empty-pattern
-function AdBanner({}: AdBannerProps) {
+function AdBanner() {
   const [isVisible, setIsVisible] = useState(true);
 
   return (

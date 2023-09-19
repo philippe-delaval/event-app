@@ -1,7 +1,6 @@
 import { Knex } from "knex";
 import { subscribeToEvent } from "./subscribe_to_event";
 import { getKnexClient } from "../lib/knex";
-import { after } from "node:test";
 
 let knexClient: Knex;
 
@@ -10,9 +9,9 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await knexClient.delete().from("attendees");
-  await knexClient.delete().from("events");
-  await knexClient.delete().from("subscriptions");
+  await knexClient("attendees").truncate();
+  await knexClient("events").truncate();
+  await knexClient("subscriptions").truncate();
 });
 
 afterAll(async () => {
@@ -50,6 +49,31 @@ it("adds a new subscription", async () => {
     {
       event_id: 1,
       attendee_id: 1,
+    },
+  ]);
+});
+
+it("can add multiple attendees to the same event", async () => {
+  await addNextEvent();
+
+  await subscribeToEvent({
+    first_name: "Foo",
+    last_name: "Bar",
+  });
+  await subscribeToEvent({
+    first_name: "Foo",
+    last_name: "Bar",
+  });
+
+  const subscriptionResult = await knexClient("subscriptions").select("*");
+  expect(subscriptionResult).toEqual([
+    {
+      event_id: 1,
+      attendee_id: 1,
+    },
+    {
+      event_id: 1,
+      attendee_id: 2,
     },
   ]);
 });

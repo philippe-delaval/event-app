@@ -8,13 +8,13 @@ export async function subscribeToEvent(
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);
-  await attendeesRepository.add({
+  const attendeeId = await attendeesRepository.add({
     first_name: query.first_name,
     last_name: query.last_name,
   });
 
   const subscriptionsRepository = new SubscriptionsRepository(knexClient);
-  await subscriptionsRepository.add(1, 1);
+  await subscriptionsRepository.add(1, attendeeId);
 }
 
 export interface SubscriptionQuery {

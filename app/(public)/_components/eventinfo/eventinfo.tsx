@@ -1,37 +1,14 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AppEvent } from "@/core/models/app_event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
 import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
 
 type EventInfoProps = {
-  formRef: React.RefObject<any>;
   nextAppEvent: AppEvent;
 };
 
 function EventInfo({ nextAppEvent }: EventInfoProps) {
-  const [, setDataEdition] = useState("");
-
-  useEffect(() => {
-    const fetchEdition = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/");
-        const data = await response.json();
-        setDataEdition(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-      }
-    };
-
-    fetchEdition()
-      .then(() => {
-        console.log("Données récupérées avec succès");
-      })
-      .catch((error) => {
-        console.log("Erreur dans l'extraction des données :", error);
-      });
-  }, []);
-
   return (
     <>
       <div className="bg-background-grey">

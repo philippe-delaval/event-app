@@ -9,10 +9,14 @@ export class AttendeesRepository {
   }: {
     first_name: string;
     last_name: string;
-  }): Promise<void> {
-    await this.knexClient("attendees").insert({
-      first_name,
-      last_name,
-    });
+  }): Promise<number> {
+    const attendeeIds = await this.knexClient("attendees")
+      .insert({
+        first_name,
+        last_name,
+      })
+      .returning("id");
+
+    return attendeeIds[0].id;
   }
 }
