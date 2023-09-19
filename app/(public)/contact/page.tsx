@@ -17,40 +17,9 @@ export default function FormContact() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: "onChange",
   });
-
-  const onSubmit = async (data: Record<string, any>) => {
-    try {
-      // Ici, on change le point d'API vers lequel on envoie les données du formulaire.
-
-      const response = await fetch("http://localhost:8000/contacte", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const newUser = await response.json();
-        const formElt = document.getElementById("contacteForm");
-        if (formElt) {
-          formElt.style.display = "none";
-        }
-        const successMessage = document.getElementById("success");
-        if (successMessage) {
-          successMessage.style.display = "block";
-        }
-        reset();
-        console.log(newUser);
-      }
-    } catch (e) {
-      console.error("Erreur lors de la récupération des données:", e);
-    }
-    console.log("Values::::::", data);
-  };
 
   const onError = (errors: unknown) => {
     console.log("Error::::::", errors);
@@ -74,7 +43,7 @@ export default function FormContact() {
       </div>
       <form
         id="contacteForm"
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(() => {}, onError)}
         action="#"
         method="POST"
         className="mx-auto mt-16 max-w-xl sm:mt-20"
@@ -233,7 +202,7 @@ export default function FormContact() {
                 }}
                 className={classNames(
                   isSwitchChecked ? "bg-primary-orange" : "bg-gray-200",
-                  "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
+                  "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 )}
               >
                 <span className="sr-only">
@@ -243,7 +212,7 @@ export default function FormContact() {
                   aria-hidden="true"
                   className={classNames(
                     isSwitchChecked ? "translate-x-3.5" : "translate-x-0",
-                    "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out",
+                    "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"
                   )}
                 />
               </Switch>

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint '**/*.{js,ts,tsx}'",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
     "db:setup": "npm run db:migrate && npm run db:seed",
@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
     "eslint": "^8.49.0",
     "eslint-config-next": "^13.4.19",
     "husky": "^8.0.0",

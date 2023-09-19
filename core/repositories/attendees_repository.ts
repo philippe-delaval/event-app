@@ -1,8 +1,7 @@
 import { Knex } from "knex";
 
 export class AttendeesRepository {
-  constructor(private readonly knexClient: Knex) {}
-
+  constructor(private readonly knex: Knex) {}
   async add({
     first_name,
     last_name,
@@ -10,7 +9,7 @@ export class AttendeesRepository {
     first_name: string;
     last_name: string;
   }): Promise<number> {
-    const attendeeIds = await this.knexClient("attendees")
+    const attendeeIds = await this.knex("attendees")
       .insert({
         first_name,
         last_name,
