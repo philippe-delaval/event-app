@@ -1,58 +1,14 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
-import PropTypes from "prop-types";
-import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AppEvent } from "@/core/models/app_event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
 import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
 
 type EventInfoProps = {
-  formRef: React.RefObject<any>;
   nextAppEvent: AppEvent;
 };
 
-EventInfo.propTypes = {
-  formRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
-};
-
-function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
-  const [, setDataEdition] = useState("");
-
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    if (formRef.current) {
-      smoothScrollIntoView(formRef.current, {
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  useEffect(() => {
-    const fetchEdition = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/");
-        const data = await response.json();
-        setDataEdition(data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-      }
-    };
-
-    fetchEdition()
-      .then(() => {
-        console.log("Données récupérées avec succès");
-      })
-      .catch((error) => {
-        console.log("Erreur dans l'extraction des données :", error);
-      });
-  }, []);
-
+function EventInfo({ nextAppEvent }: EventInfoProps) {
   return (
     <>
       <div className="bg-background-grey">
@@ -98,7 +54,6 @@ function EventInfo({ formRef, nextAppEvent }: EventInfoProps) {
                 <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                   <a
                     href="#"
-                    onClick={handleLinkClick}
                     className="rounded-md bg-primary-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     Réservez votre billet !

@@ -1,34 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import smoothScrollIntoView from "smooth-scroll-into-view-if-needed";
-import PropTypes from "prop-types";
 import Counter from "@/app/(public)/_components/counter/counter";
 
-type AdBannerProps = {
-  formRef: React.RefObject<any>;
-};
-
-AdBanner.propTypes = {
-  formRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
-};
-
-function AdBanner({ formRef }: AdBannerProps) {
+function AdBanner() {
   const [isVisible, setIsVisible] = useState(true);
-
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
-    if (formRef.current) {
-      smoothScrollIntoView(formRef.current, {
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
 
   return (
     <>
@@ -67,7 +44,6 @@ function AdBanner({ formRef }: AdBannerProps) {
             </p>
             <a
               href="#"
-              onClick={handleLinkClick}
               className="flex-none rounded-full bg-primary-orange px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
             >
               C&#39;est par ici <span aria-hidden="true">&rarr;</span>
