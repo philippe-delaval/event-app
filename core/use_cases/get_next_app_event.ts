@@ -3,7 +3,7 @@ import { getKnexClient } from "../lib/knex";
 import { AppEventsRepository } from "../repositories/app_events_repository";
 
 export async function getNextAppEvent(): Promise<AppEvent> {
-  const knexClient = getKnexClient();
+  const knexClient = await getKnexClient();
   const appEventsRepository = new AppEventsRepository(knexClient);
   const appEvent = await appEventsRepository.findNextAppEvent();
 
