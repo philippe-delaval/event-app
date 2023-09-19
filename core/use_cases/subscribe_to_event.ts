@@ -1,5 +1,6 @@
 import { getKnexClient } from "../lib/knex";
 import { AttendeesRepository } from "../repositories/attendees_repository";
+import { SubscriptionsRepository } from "../repositories/subscriptions_repository";
 
 export async function subscribeToEvent(
   query: SubscriptionQuery
@@ -12,10 +13,8 @@ export async function subscribeToEvent(
     last_name: query.last_name,
   });
 
-  await knexClient("subscriptions").insert({
-    event_id: 1,
-    attendee_id: 1,
-  });
+  const subscriptionsRepository = new SubscriptionsRepository(knexClient);
+  await subscriptionsRepository.add(1, 1);
 }
 
 export interface SubscriptionQuery {
