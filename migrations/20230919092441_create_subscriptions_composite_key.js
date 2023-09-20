@@ -3,9 +3,9 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return knex.schema.table("registrations", function (table) {
-        table.primary(["event_id", "attendee_id"]);
-    });
+  return knex.schema.table("subscriptions", function (table) {
+    table.primary(["event_id", "attendee_id"]);
+  });
 };
 
 /**
@@ -13,7 +13,7 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.table("registrations", function (table) {
-        table.dropPrimary(["event_id", "attendee_id"]);
-    });
+  return knex.schema.table("subscriptions", function (table) {
+    table.dropPrimary(["event_id", "attendee_id"]);
+  });
 };
