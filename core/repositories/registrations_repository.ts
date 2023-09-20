@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 
-export class RegisterRepository {
+export class RegistrationsRepository {
   constructor(private readonly knex: Knex) {}
 
   async add(eventId: number, attendeeId: number): Promise<void> {
