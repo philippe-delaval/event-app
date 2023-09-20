@@ -78,6 +78,17 @@ describe("when an attendee registers for an event", () => {
       },
     ]);
   });
+
+  it("throws an error if the first name is missing", async () => {
+    await addNextEvent();
+
+    expect(() =>
+      registerToEvent({
+        first_name: "",
+        last_name: "Bar",
+      })
+    ).rejects.toThrow("First name is required");
+  });
 });
 
 async function addNextEvent() {

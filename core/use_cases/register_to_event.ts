@@ -3,6 +3,10 @@ import { AttendeesRepository } from "../repositories/attendees_repository";
 import { RegistrationsRepository } from "../repositories/registrations_repository";
 
 export async function registerToEvent(query: RegisterQuery): Promise<void> {
+  if (!query.first_name) {
+    throw new Error("First name is required");
+  }
+
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);
