@@ -1,12 +1,12 @@
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
-import { subscribeToEvent } from "../../../../core/use_cases/subscribe_to_event";
+import { registerToEvent } from "@/core/use_cases/register_to_event";
 
 export default async function FormInscription() {
   async function create(formData: FormData) {
     "use server";
 
-    await subscribeToEvent({
+    await registerToEvent({
       first_name: formData.get("first-name")?.toString() ?? "",
       last_name: formData.get("last-name")?.toString() ?? "",
     });

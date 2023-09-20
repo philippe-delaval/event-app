@@ -1,10 +1,8 @@
 import { getKnexClient } from "../lib/knex";
 import { AttendeesRepository } from "../repositories/attendees_repository";
-import { SubscriptionsRepository } from "../repositories/subscriptions_repository";
+import { RegisterRepository } from "../repositories/register_repository";
 
-export async function subscribeToEvent(
-  query: SubscriptionQuery
-): Promise<void> {
+export async function registerToEvent(query: RegisterQuery): Promise<void> {
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);
@@ -13,11 +11,11 @@ export async function subscribeToEvent(
     last_name: query.last_name,
   });
 
-  const subscriptionsRepository = new SubscriptionsRepository(knexClient);
-  await subscriptionsRepository.add(1, attendeeId);
+  const registerRepository = new RegisterRepository(knexClient);
+  await registerRepository.add(1, attendeeId);
 }
 
-export interface SubscriptionQuery {
+export interface RegisterQuery {
   last_name: string;
   first_name: string;
 }
