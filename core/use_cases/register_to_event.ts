@@ -7,6 +7,24 @@ export async function registerToEvent(query: RegisterQuery): Promise<void> {
     throw new Error("First name is required");
   }
 
+  if (/\d/.test(query.first_name)) {
+    throw new Error("First name must have letters only");
+  }
+
+  if (query.first_name.length < 1 || query.first_name.length > 50) {
+    throw new Error("First name must be between 1 and 50 characters long");
+  }
+
+  if (
+    !/^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u.test(
+      query.first_name,
+    )
+  ) {
+    throw new Error(
+      "First name can only contain letters, spaces, hyphens, and apostrophes",
+    );
+  }
+
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);

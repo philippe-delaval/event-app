@@ -78,6 +78,31 @@ describe("when an attendee registers for an event", () => {
       },
     ]);
   });
+});
+
+describe("First name field validation", () => {
+  it("accepts a first name with a valid length", async () => {
+    await addNextEvent();
+
+    const promise = registerToEvent({
+      first_name: "Foo",
+      last_name: "Doe",
+    });
+
+    await expect(promise).resolves.not.toThrow();
+  });
+
+  it("accepts a first name with valid special characters (hyphens and apostrophes...)", async () => {
+    await addNextEvent();
+
+    await registerToEvent({
+      first_name: "Anne-Marie",
+      last_name: "Doe",
+    });
+
+    const attendeeResult = await knexClient("attendees").select("*");
+    expect(attendeeResult[0].first_name).toEqual("Anne-Marie");
+  });
 
   it("throws an error if the first name is missing", async () => {
     await addNextEvent();
@@ -86,8 +111,19 @@ describe("when an attendee registers for an event", () => {
       registerToEvent({
         first_name: "",
         last_name: "Bar",
-      })
+      }),
     ).rejects.toThrow("First name is required");
+  });
+
+  it("throws an error if the first name contains numbers", async () => {
+    await addNextEvent();
+
+    expect(() =>
+      registerToEvent({
+        first_name: "Foo1",
+        last_name: "Bar",
+      }),
+    ).rejects.toThrow("First name must have letters only");
   });
 });
 
