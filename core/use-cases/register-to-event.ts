@@ -15,23 +15,20 @@ export async function registerToEvent(
   });
 }
 
-function validateAndTransformFirstName(firstName: string): string {
-  const firstNameRegex =
-    /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
+const ATTENDEE_NAME_REGEX =
+  /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
 
+function validateAndTransformFirstName(firstName: string): string {
   const firstNameSchema = z.object({
-    firstName: z.string().min(2).max(250).regex(firstNameRegex).trim(),
+    firstName: z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim(),
   });
 
   return firstNameSchema.parse({ firstName }).firstName;
 }
 
 function validateAndTransformLastName(lastName: string): string {
-  const lastNameRegex =
-    /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
-
   const lastNameSchema = z.object({
-    lastName: z.string().min(2).max(250).regex(lastNameRegex).trim(),
+    lastName: z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim(),
   });
 
   return lastNameSchema.parse({ lastName }).lastName;
