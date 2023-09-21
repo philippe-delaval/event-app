@@ -6,32 +6,25 @@ import { RegistrationsRepository } from "../repositories/registrations-repositor
 export async function registerToEvent(
   command: RegistrationCommand
 ): Promise<void> {
-  const satinitizedFirstName = validateAndTransformFirstName(command.firstName);
-  const satinitizedLastName = validateAndTransformLastName(command.lastName);
+  const sanitizedCommand = validateAndTransformRegistrationCommand(command);
 
-  await registerAttendee({
-    firstName: satinitizedFirstName,
-    lastName: satinitizedLastName,
-  });
+  await registerAttendee(sanitizedCommand);
 }
 
 const ATTENDEE_NAME_REGEX =
   /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
 
-function validateAndTransformFirstName(firstName: string): string {
-  const firstNameSchema = z.object({
-    firstName: z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim(),
+function validateAndTransformRegistrationCommand(command: RegistrationCommand) {
+  const registrationCommandSchema = z.object({
+    firstName: getAttendeeNameTransformerAndValidator(),
+    lastName: getAttendeeNameTransformerAndValidator(),
   });
 
-  return firstNameSchema.parse({ firstName }).firstName;
+  return registrationCommandSchema.parse(command);
 }
 
-function validateAndTransformLastName(lastName: string): string {
-  const lastNameSchema = z.object({
-    lastName: z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim(),
-  });
-
-  return lastNameSchema.parse({ lastName }).lastName;
+function getAttendeeNameTransformerAndValidator() {
+  return z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim();
 }
 
 async function registerAttendee(command: RegistrationCommand) {
