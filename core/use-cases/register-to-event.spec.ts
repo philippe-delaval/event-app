@@ -23,8 +23,8 @@ describe("When an attendee registers for an event", () => {
     await addNextEvent();
 
     await registerToEvent({
-      first_name: "Foo",
-      last_name: "Bar",
+      firstName: "Foo",
+      lastName: "Bar",
     });
 
     const attendeeResult = await knexClient("attendees").select("*");
@@ -41,8 +41,8 @@ describe("When an attendee registers for an event", () => {
     await addNextEvent();
 
     await registerToEvent({
-      first_name: "Foo",
-      last_name: "Bar",
+      firstName: "Foo",
+      lastName: "Bar",
     });
 
     const registerResult = await knexClient("registrations").select("*");
@@ -58,12 +58,12 @@ describe("When an attendee registers for an event", () => {
     await addNextEvent();
 
     await registerToEvent({
-      first_name: "Foo",
-      last_name: "Bar",
+      firstName: "Foo",
+      lastName: "Bar",
     });
     await registerToEvent({
-      first_name: "Foo",
-      last_name: "Bar",
+      firstName: "Foo",
+      lastName: "Bar",
     });
 
     const registerResult = await knexClient("registrations").select("*");
@@ -85,8 +85,8 @@ describe("When an attendee registers for an event", () => {
 
       await expect(() =>
         registerToEvent({
-          first_name: "F",
-          last_name: "Doe",
+          firstName: "F",
+          lastName: "Doe",
         })
       ).rejects.toThrow("First name must be between 1 and 250 characters long");
     });
@@ -98,8 +98,8 @@ describe("When an attendee registers for an event", () => {
 
       await expect(() =>
         registerToEvent({
-          first_name: longName,
-          last_name: "Doe",
+          firstName: longName,
+          lastName: "Doe",
         })
       ).rejects.toThrow("First name must be between 1 and 250 characters long");
     });
@@ -109,8 +109,8 @@ describe("When an attendee registers for an event", () => {
 
       await expect(
         registerToEvent({
-          first_name: "Anne-Marie",
-          last_name: "Doe",
+          firstName: "Anne-Marie",
+          lastName: "Doe",
         })
       ).resolves.not.toThrow();
     });
@@ -120,8 +120,8 @@ describe("When an attendee registers for an event", () => {
 
       await expect(() =>
         registerToEvent({
-          first_name: "Bob@",
-          last_name: "Doe",
+          firstName: "Bob@",
+          lastName: "Doe",
         })
       ).rejects.toThrow(
         "First name can only contain spaces, hyphens, and apostrophes"
@@ -133,8 +133,8 @@ describe("When an attendee registers for an event", () => {
 
       expect(() =>
         registerToEvent({
-          first_name: "",
-          last_name: "Bar",
+          firstName: "",
+          lastName: "Bar",
         })
       ).rejects.toThrow("First name is required");
     });
@@ -144,8 +144,8 @@ describe("When an attendee registers for an event", () => {
 
       expect(() =>
         registerToEvent({
-          first_name: "Foo1",
-          last_name: "Bar",
+          firstName: "Foo1",
+          lastName: "Bar",
         })
       ).rejects.toThrow("First name must have letters only");
     });
@@ -155,8 +155,8 @@ describe("When an attendee registers for an event", () => {
 
       await expect(
         registerToEvent({
-          first_name: " Foo ",
-          last_name: "Bar",
+          firstName: " Foo ",
+          lastName: "Bar",
         })
       ).resolves.not.toThrow();
     });

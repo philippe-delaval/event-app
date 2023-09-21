@@ -3,7 +3,7 @@ import { AttendeesRepository } from "../repositories/attendees-repository";
 import { RegistrationsRepository } from "../repositories/registrations-repository";
 
 export async function registerToEvent(query: RegistrationQuery): Promise<void> {
-  const satinitizedFirstName = satinizeFirstName(query.first_name);
+  const satinitizedFirstName = satinizeFirstName(query.firstName);
   validateFirstName(satinitizedFirstName);
 
   await registerAttendee(query);
@@ -42,8 +42,8 @@ async function registerAttendee(query: RegistrationQuery) {
 
   const attendeesRepository = new AttendeesRepository(knexClient);
   const attendeeId = await attendeesRepository.add({
-    first_name: query.first_name,
-    last_name: query.last_name,
+    first_name: query.firstName,
+    last_name: query.lastName,
   });
 
   const registerRepository = new RegistrationsRepository(knexClient);
@@ -51,6 +51,6 @@ async function registerAttendee(query: RegistrationQuery) {
 }
 
 export interface RegistrationQuery {
-  last_name: string;
-  first_name: string;
+  lastName: string;
+  firstName: string;
 }

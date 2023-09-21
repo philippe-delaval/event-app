@@ -7,8 +7,8 @@ export default async function FormInscription() {
     "use server";
 
     await registerToEvent({
-      first_name: formData.get("first-name")?.toString() ?? "",
-      last_name: formData.get("last-name")?.toString() ?? "",
+      firstName: formData.get("first-name")?.toString() ?? "",
+      lastName: formData.get("last-name")?.toString() ?? "",
     });
   }
 
