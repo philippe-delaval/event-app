@@ -21,7 +21,7 @@ export async function registerToEvent(query: RegisterQuery): Promise<void> {
     )
   ) {
     throw new Error(
-      "First name can only contain letters, spaces, hyphens, and apostrophes",
+      "First name can only contain spaces, hyphens, and apostrophes",
     );
   }
 

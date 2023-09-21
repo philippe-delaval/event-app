@@ -115,6 +115,19 @@ describe("First name field validation", () => {
     ).resolves.not.toThrow();
   });
 
+  it("rejects a first name containing special characters", async () => {
+    await addNextEvent();
+
+    await expect(() =>
+      registerToEvent({
+        first_name: "Bob@",
+        last_name: "Doe",
+      }),
+    ).rejects.toThrow(
+      "First name can only contain spaces, hyphens, and apostrophes",
+    );
+  });
+
   it("throws an error if the first name is missing", async () => {
     await addNextEvent();
 
