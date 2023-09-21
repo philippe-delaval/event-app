@@ -3,34 +3,28 @@ import { AttendeesRepository } from "../repositories/attendees_repository";
 import { RegistrationsRepository } from "../repositories/registrations_repository";
 
 export async function registerToEvent(query: RegisterQuery): Promise<void> {
-  if (!query.first_name) {
+  const first_name = query.first_name.trim();
+
+  if (!first_name) {
     throw new Error("First name is required");
   }
 
-  if (/\d/.test(query.first_name)) {
+  if (/\d/.test(first_name)) {
     throw new Error("First name must have letters only");
   }
 
-  if (query.first_name.length < 2 || query.first_name.length > 250) {
+  if (first_name.length < 2 || first_name.length > 250) {
     throw new Error("First name must be between 1 and 250 characters long");
   }
 
   if (
     !/^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u.test(
-      query.first_name,
+      first_name
     )
   ) {
     throw new Error(
-      "First name can only contain spaces, hyphens, and apostrophes",
+      "First name can only contain spaces, hyphens, and apostrophes"
     );
-  }
-
-  if (!query.first_name.trim().length) {
-    throw new Error("First name must not be only spaces");
-  }
-
-  if (query.first_name !== query.first_name.trim()) {
-    throw new Error("First name must not contain leading or trailing spaces");
   }
 
   const knexClient = await getKnexClient();

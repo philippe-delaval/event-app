@@ -18,7 +18,7 @@ afterAll(async () => {
   await knexClient.destroy();
 });
 
-describe("when an attendee registers for an event", () => {
+describe("When an attendee registers for an event", () => {
   it("registers a new attendee", async () => {
     await addNextEvent();
 
@@ -37,7 +37,7 @@ describe("when an attendee registers for an event", () => {
     ]);
   });
 
-  it("adds a new register", async () => {
+  it("adds a new registration", async () => {
     await addNextEvent();
 
     await registerToEvent({
@@ -78,98 +78,88 @@ describe("when an attendee registers for an event", () => {
       },
     ]);
   });
-});
 
-describe("First name field validation", () => {
-  it("rejects a first name that is too short", async () => {
-    await addNextEvent();
+  describe("First name field validation", () => {
+    it("rejects a first name that is too short", async () => {
+      await addNextEvent();
 
-    await expect(() =>
-      registerToEvent({
-        first_name: "F",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("First name must be between 1 and 250 characters long");
-  });
+      await expect(() =>
+        registerToEvent({
+          first_name: "F",
+          last_name: "Doe",
+        })
+      ).rejects.toThrow("First name must be between 1 and 250 characters long");
+    });
 
-  it("rejects a first name that is too long", async () => {
-    await addNextEvent();
+    it("rejects a first name that is too long", async () => {
+      await addNextEvent();
 
-    const longName = "A".repeat(251);
-    await expect(() =>
-      registerToEvent({
-        first_name: longName,
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("First name must be between 1 and 250 characters long");
-  });
+      const longName = "A".repeat(251);
 
-  it("accepts a first name with valid special characters (hyphens and apostrophes...)", async () => {
-    await addNextEvent();
+      await expect(() =>
+        registerToEvent({
+          first_name: longName,
+          last_name: "Doe",
+        })
+      ).rejects.toThrow("First name must be between 1 and 250 characters long");
+    });
 
-    await expect(
-      registerToEvent({
-        first_name: "Anne-Marie",
-        last_name: "Doe",
-      }),
-    ).resolves.not.toThrow();
-  });
+    it("accepts a first name with valid special characters (hyphens and apostrophes...)", async () => {
+      await addNextEvent();
 
-  it("rejects a first name containing special characters", async () => {
-    await addNextEvent();
+      await expect(
+        registerToEvent({
+          first_name: "Anne-Marie",
+          last_name: "Doe",
+        })
+      ).resolves.not.toThrow();
+    });
 
-    await expect(() =>
-      registerToEvent({
-        first_name: "Bob@",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow(
-      "First name can only contain spaces, hyphens, and apostrophes",
-    );
-  });
+    it("rejects a first name containing special characters", async () => {
+      await addNextEvent();
 
-  it("throws an error if the first name is missing", async () => {
-    await addNextEvent();
+      await expect(() =>
+        registerToEvent({
+          first_name: "Bob@",
+          last_name: "Doe",
+        })
+      ).rejects.toThrow(
+        "First name can only contain spaces, hyphens, and apostrophes"
+      );
+    });
 
-    expect(() =>
-      registerToEvent({
-        first_name: "",
-        last_name: "Bar",
-      }),
-    ).rejects.toThrow("First name is required");
-  });
+    it("rejects when the first name is missing", async () => {
+      await addNextEvent();
 
-  it("throws an error if the first name contains numbers", async () => {
-    await addNextEvent();
+      expect(() =>
+        registerToEvent({
+          first_name: "",
+          last_name: "Bar",
+        })
+      ).rejects.toThrow("First name is required");
+    });
 
-    expect(() =>
-      registerToEvent({
-        first_name: "Foo1",
-        last_name: "Bar",
-      }),
-    ).rejects.toThrow("First name must have letters only");
-  });
+    it("rejects when the first name contains numbers", async () => {
+      await addNextEvent();
 
-  it("rejects a first name with leading or trailing spaces", async () => {
-    await addNextEvent();
+      expect(() =>
+        registerToEvent({
+          first_name: "Foo1",
+          last_name: "Bar",
+        })
+      ).rejects.toThrow("First name must have letters only");
+    });
 
-    await expect(() =>
-      registerToEvent({
-        first_name: " Alice ",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("First name must not contain leading or trailing spaces");
-  });
+    it("validates when the first name contains spaces around", async () => {
+      await addNextEvent();
 
-  it("rejects a first name containing only spaces", async () => {
-    await addNextEvent();
-
-    await expect(() =>
-      registerToEvent({
-        first_name: "    ",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("First name must not be only spaces");
+      await expect(
+        registerToEvent({
+          first_name: " Foo ",
+          last_name: "Bar",
+        })
+      ).resolves.not.toThrow();
+    });
   });
 });
 
