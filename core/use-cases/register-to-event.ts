@@ -6,25 +6,39 @@ import { RegistrationsRepository } from "../repositories/registrations-repositor
 export async function registerToEvent(
   command: RegistrationCommand
 ): Promise<void> {
-  const sanitizedCommand = validateAndTransformRegistrationCommand(command);
+  const transformedCommand = transformRegistrationCommand(command);
+  const validatedCommand = validateRegistrationCommand(transformedCommand);
 
-  await registerAttendee(sanitizedCommand);
+  await registerAttendee(validatedCommand);
 }
 
 const ATTENDEE_NAME_REGEX =
   /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
 
-function validateAndTransformRegistrationCommand(command: RegistrationCommand) {
+function transformRegistrationCommand(
+  command: RegistrationCommand
+): RegistrationCommand {
+  return z
+    .object({
+      firstName: z.string().trim(),
+      lastName: z.string().trim(),
+    })
+    .parse(command);
+}
+
+function validateRegistrationCommand(
+  command: RegistrationCommand
+): RegistrationCommand {
   const registrationCommandSchema = z.object({
-    firstName: getAttendeeNameTransformerAndValidator(),
-    lastName: getAttendeeNameTransformerAndValidator(),
+    firstName: getAttendeeNameValidator(),
+    lastName: getAttendeeNameValidator(),
   });
 
   return registrationCommandSchema.parse(command);
 }
 
-function getAttendeeNameTransformerAndValidator() {
-  return z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX).trim();
+function getAttendeeNameValidator() {
+  return z.string().min(2).max(250).regex(ATTENDEE_NAME_REGEX);
 }
 
 async function registerAttendee(command: RegistrationCommand) {
