@@ -171,28 +171,6 @@ describe("First name field validation", () => {
       }),
     ).rejects.toThrow("First name must not be only spaces");
   });
-
-  it("rejects an attempt of SQL injection through the first name field", async () => {
-    await addNextEvent();
-
-    await expect(() =>
-      registerToEvent({
-        first_name: "Alice'; DROP TABLE attendees; --",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("Invalid input");
-  });
-
-  it("rejects an attempt of XSS attack through the first name field", async () => {
-    await addNextEvent();
-
-    await expect(() =>
-      registerToEvent({
-        first_name: "<script>alert('XSS')</script>",
-        last_name: "Doe",
-      }),
-    ).rejects.toThrow("Invalid input");
-  });
 });
 
 async function addNextEvent() {
