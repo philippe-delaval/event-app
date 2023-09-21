@@ -1,32 +1,20 @@
 import { getKnexClient } from "../lib/knex";
 import { AttendeesRepository } from "../repositories/attendees_repository";
 import { RegistrationsRepository } from "../repositories/registrations_repository";
+import { validateFirstName } from "./validateFirstName";
 
-export async function registerToEvent(query: RegisterQuery): Promise<void> {
-  const first_name = query.first_name.trim();
+export async function registerToEvent(query: RegistrationQuery): Promise<void> {
+  const satinitizedFirstName = satinizeFirstName(query.first_name);
+  validateFirstName(satinitizedFirstName);
 
-  if (!first_name) {
-    throw new Error("First name is required");
-  }
+  await registerAttendee(query);
+}
 
-  if (/\d/.test(first_name)) {
-    throw new Error("First name must have letters only");
-  }
+function satinizeFirstName(firstName: string) {
+  return firstName.trim();
+}
 
-  if (first_name.length < 2 || first_name.length > 250) {
-    throw new Error("First name must be between 1 and 250 characters long");
-  }
-
-  if (
-    !/^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u.test(
-      first_name
-    )
-  ) {
-    throw new Error(
-      "First name can only contain spaces, hyphens, and apostrophes"
-    );
-  }
-
+async function registerAttendee(query: RegistrationQuery) {
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);
@@ -39,7 +27,7 @@ export async function registerToEvent(query: RegisterQuery): Promise<void> {
   await registerRepository.add(1, attendeeId);
 }
 
-export interface RegisterQuery {
+export interface RegistrationQuery {
   last_name: string;
   first_name: string;
 }
