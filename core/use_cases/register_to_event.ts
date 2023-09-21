@@ -15,6 +15,18 @@ export async function registerToEvent(query: RegisterQuery): Promise<void> {
     throw new Error("First name must be between 1 and 250 characters long");
   }
 
+  if (/(;|--|\bDROP\b|\bTABLE\b|\bSELECT\b|\bFROM\b)/i.test(query.first_name)) {
+    throw new Error("Invalid input");
+  }
+
+  if (
+    /(<\s*script\b|\bjavascript:|\balert\b|\bdocument\b|\bwindow\b)/i.test(
+      query.first_name,
+    )
+  ) {
+    throw new Error("Invalid input");
+  }
+
   if (
     !/^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u.test(
       query.first_name,
