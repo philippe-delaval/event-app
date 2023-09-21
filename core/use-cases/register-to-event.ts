@@ -6,8 +6,7 @@ import { RegistrationsRepository } from "../repositories/registrations-repositor
 export async function registerToEvent(
   command: RegistrationCommand
 ): Promise<void> {
-  const satinitizedFirstName = satinizeFirstName(command.firstName);
-  validateFirstName(satinitizedFirstName);
+  const satinitizedFirstName = validateAndTransformFirstName(command.firstName);
 
   await registerAttendee({
     firstName: satinitizedFirstName,
@@ -15,19 +14,15 @@ export async function registerToEvent(
   });
 }
 
-function satinizeFirstName(firstName: string) {
-  return firstName.trim();
-}
-
-function validateFirstName(firstName: string) {
+function validateAndTransformFirstName(firstName: string): string {
   const firstNameRegex =
     /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
 
   const firstNameSchema = z.object({
-    firstName: z.string().min(2).max(250).regex(firstNameRegex),
+    firstName: z.string().min(2).max(250).regex(firstNameRegex).trim(),
   });
 
-  firstNameSchema.parse({ firstName });
+  return firstNameSchema.parse({ firstName }).firstName;
 }
 
 async function registerAttendee(command: RegistrationCommand) {
