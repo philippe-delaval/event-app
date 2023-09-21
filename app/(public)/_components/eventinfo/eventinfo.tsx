@@ -1,6 +1,6 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import React from "react";
-import { AppEvent } from "@/core/models/app_event";
+import { AppEvent } from "@/core/models/app-event";
 import FormattedDate from "@/app/(public)/_components/date-formated/date-formated";
 import MapGoogle from "@/app/(public)/_components/mapgoogle/mapgoogle";
 import Link from "next/link";
