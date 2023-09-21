@@ -1,6 +1,6 @@
 import { Knex } from "knex";
-import { registerToEvent } from "./register-to-event";
-import { getKnexClient } from "../lib/knex";
+import { registerToEvent } from "./register-to-event.use-case";
+import { getKnexClient } from "@/core/lib/knex";
 import { ZodError } from "zod";
 
 let knexClient: Knex;

@@ -1,6 +1,6 @@
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
-import { registerToEvent } from "@/core/use-cases/register-to-event";
+import { registerToEvent } from "@/core/use-cases/register-to-event/register-to-event.use-case";
 
 export default async function FormInscription() {
   async function create(formData: FormData) {
