@@ -160,6 +160,17 @@ describe("First name field validation", () => {
       }),
     ).rejects.toThrow("First name must not contain leading or trailing spaces");
   });
+
+  it("rejects a first name containing only spaces", async () => {
+    await addNextEvent();
+
+    await expect(() =>
+      registerToEvent({
+        first_name: "    ",
+        last_name: "Doe",
+      }),
+    ).rejects.toThrow("First name must not be only spaces");
+  });
 });
 
 async function addNextEvent() {

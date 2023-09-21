@@ -25,6 +25,10 @@ export async function registerToEvent(query: RegisterQuery): Promise<void> {
     );
   }
 
+  if (!query.first_name.trim().length) {
+    throw new Error("First name must not be only spaces");
+  }
+
   if (query.first_name !== query.first_name.trim()) {
     throw new Error("First name must not contain leading or trailing spaces");
   }
