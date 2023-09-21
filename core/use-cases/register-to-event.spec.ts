@@ -1,6 +1,7 @@
 import { Knex } from "knex";
 import { registerToEvent } from "./register-to-event";
 import { getKnexClient } from "../lib/knex";
+import { ZodError } from "zod";
 
 let knexClient: Knex;
 
@@ -88,7 +89,7 @@ describe("When an attendee registers for an event", () => {
           firstName: "F",
           lastName: "Doe",
         })
-      ).rejects.toThrow("First name must be between 1 and 250 characters long");
+      ).rejects.toThrow(ZodError);
     });
 
     it("rejects a first name that is too long", async () => {
@@ -101,7 +102,7 @@ describe("When an attendee registers for an event", () => {
           firstName: longName,
           lastName: "Doe",
         })
-      ).rejects.toThrow("First name must be between 1 and 250 characters long");
+      ).rejects.toThrow(ZodError);
     });
 
     it("accepts a first name with valid special characters (hyphens and apostrophes...)", async () => {
@@ -123,9 +124,7 @@ describe("When an attendee registers for an event", () => {
           firstName: "Bob@",
           lastName: "Doe",
         })
-      ).rejects.toThrow(
-        "First name can only contain spaces, hyphens, and apostrophes"
-      );
+      ).rejects.toThrow(ZodError);
     });
 
     it("rejects when the first name is missing", async () => {
@@ -136,7 +135,7 @@ describe("When an attendee registers for an event", () => {
           firstName: "",
           lastName: "Bar",
         })
-      ).rejects.toThrow("First name is required");
+      ).rejects.toThrow(ZodError);
     });
 
     it("rejects when the first name contains numbers", async () => {
@@ -147,7 +146,7 @@ describe("When an attendee registers for an event", () => {
           firstName: "Foo1",
           lastName: "Bar",
         })
-      ).rejects.toThrow("First name must have letters only");
+      ).rejects.toThrow(ZodError);
     });
 
     it("validates when the first name contains spaces around", async () => {

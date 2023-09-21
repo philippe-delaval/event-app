@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { getKnexClient } from "../lib/knex";
 import { AttendeesRepository } from "../repositories/attendees-repository";
 import { RegistrationsRepository } from "../repositories/registrations-repository";
@@ -19,27 +20,14 @@ function satinizeFirstName(firstName: string) {
 }
 
 function validateFirstName(firstName: string) {
-  if (!firstName) {
-    throw new Error("First name is required");
-  }
+  const firstNameRegex =
+    /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
 
-  if (/\d/.test(firstName)) {
-    throw new Error("First name must have letters only");
-  }
+  const firstNameSchema = z.object({
+    firstName: z.string().min(2).max(250).regex(firstNameRegex),
+  });
 
-  if (firstName.length < 2 || firstName.length > 250) {
-    throw new Error("First name must be between 1 and 250 characters long");
-  }
-
-  if (
-    !/^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u.test(
-      firstName
-    )
-  ) {
-    throw new Error(
-      "First name can only contain spaces, hyphens, and apostrophes"
-    );
-  }
+  firstNameSchema.parse({ firstName });
 }
 
 async function registerAttendee(command: RegistrationCommand) {
