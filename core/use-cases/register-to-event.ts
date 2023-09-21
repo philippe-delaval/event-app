@@ -7,10 +7,11 @@ export async function registerToEvent(
   command: RegistrationCommand
 ): Promise<void> {
   const satinitizedFirstName = validateAndTransformFirstName(command.firstName);
+  const satinitizedLastName = validateAndTransformLastName(command.lastName);
 
   await registerAttendee({
     firstName: satinitizedFirstName,
-    lastName: command.lastName,
+    lastName: satinitizedLastName,
   });
 }
 
@@ -23,6 +24,17 @@ function validateAndTransformFirstName(firstName: string): string {
   });
 
   return firstNameSchema.parse({ firstName }).firstName;
+}
+
+function validateAndTransformLastName(lastName: string): string {
+  const lastNameRegex =
+    /^[a-zA-ZàáâäãåąćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĻŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð .'-]+$/u;
+
+  const lastNameSchema = z.object({
+    lastName: z.string().min(2).max(250).regex(lastNameRegex).trim(),
+  });
+
+  return lastNameSchema.parse({ lastName }).lastName;
 }
 
 async function registerAttendee(command: RegistrationCommand) {

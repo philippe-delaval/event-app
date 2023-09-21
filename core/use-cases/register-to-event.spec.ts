@@ -160,6 +160,87 @@ describe("When an attendee registers for an event", () => {
       ).resolves.not.toThrow();
     });
   });
+
+  describe("Last name field validation", () => {
+    it("rejects a last name that is too short", async () => {
+      await addNextEvent();
+
+      await expect(() =>
+        registerToEvent({
+          firstName: "Foo",
+          lastName: "D",
+        })
+      ).rejects.toThrow(ZodError);
+    });
+
+    it("rejects a last name that is too long", async () => {
+      await addNextEvent();
+
+      const longName = "A".repeat(251);
+
+      await expect(() =>
+        registerToEvent({
+          firstName: "Foo",
+          lastName: longName,
+        })
+      ).rejects.toThrow(ZodError);
+    });
+
+    it("accepts a last name with valid special characters (hyphens and apostrophes...)", async () => {
+      await addNextEvent();
+
+      await expect(
+        registerToEvent({
+          firstName: "Anne-Marie",
+          lastName: "De-la-Villardière",
+        })
+      ).resolves.not.toThrow();
+    });
+
+    it("rejects a last name containing special characters", async () => {
+      await addNextEvent();
+
+      await expect(() =>
+        registerToEvent({
+          firstName: "Bob",
+          lastName: "Doe@",
+        })
+      ).rejects.toThrow(ZodError);
+    });
+
+    it("rejects when the last name is missing", async () => {
+      await addNextEvent();
+
+      expect(() =>
+        registerToEvent({
+          firstName: "Foo",
+          lastName: "",
+        })
+      ).rejects.toThrow(ZodError);
+    });
+
+    it("rejects when the last name contains numbers", async () => {
+      await addNextEvent();
+
+      expect(() =>
+        registerToEvent({
+          firstName: "Foo",
+          lastName: "Bar1",
+        })
+      ).rejects.toThrow(ZodError);
+    });
+
+    it("validates when the last name contains spaces around", async () => {
+      await addNextEvent();
+
+      await expect(
+        registerToEvent({
+          firstName: "Foo",
+          lastName: " Bar ",
+        })
+      ).resolves.not.toThrow();
+    });
+  });
 });
 
 async function addNextEvent() {
