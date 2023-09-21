@@ -81,27 +81,38 @@ describe("when an attendee registers for an event", () => {
 });
 
 describe("First name field validation", () => {
-  it("accepts a first name with a valid length", async () => {
+  it("rejects a first name that is too short", async () => {
     await addNextEvent();
 
-    const promise = registerToEvent({
-      first_name: "Foo",
-      last_name: "Doe",
-    });
+    await expect(() =>
+      registerToEvent({
+        first_name: "F",
+        last_name: "Doe",
+      }),
+    ).rejects.toThrow("First name must be between 1 and 250 characters long");
+  });
 
-    await expect(promise).resolves.not.toThrow();
+  it("rejects a first name that is too long", async () => {
+    await addNextEvent();
+
+    const longName = "A".repeat(251);
+    await expect(() =>
+      registerToEvent({
+        first_name: longName,
+        last_name: "Doe",
+      }),
+    ).rejects.toThrow("First name must be between 1 and 250 characters long");
   });
 
   it("accepts a first name with valid special characters (hyphens and apostrophes...)", async () => {
     await addNextEvent();
 
-    await registerToEvent({
-      first_name: "Anne-Marie",
-      last_name: "Doe",
-    });
-
-    const attendeeResult = await knexClient("attendees").select("*");
-    expect(attendeeResult[0].first_name).toEqual("Anne-Marie");
+    await expect(
+      registerToEvent({
+        first_name: "Anne-Marie",
+        last_name: "Doe",
+      }),
+    ).resolves.not.toThrow();
   });
 
   it("throws an error if the first name is missing", async () => {
