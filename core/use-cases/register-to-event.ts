@@ -8,7 +8,10 @@ export async function registerToEvent(
   const satinitizedFirstName = satinizeFirstName(command.firstName);
   validateFirstName(satinitizedFirstName);
 
-  await registerAttendee(command);
+  await registerAttendee({
+    firstName: satinitizedFirstName,
+    lastName: command.lastName,
+  });
 }
 
 function satinizeFirstName(firstName: string) {
