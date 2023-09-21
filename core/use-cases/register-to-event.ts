@@ -2,11 +2,13 @@ import { getKnexClient } from "../lib/knex";
 import { AttendeesRepository } from "../repositories/attendees-repository";
 import { RegistrationsRepository } from "../repositories/registrations-repository";
 
-export async function registerToEvent(query: RegistrationQuery): Promise<void> {
-  const satinitizedFirstName = satinizeFirstName(query.firstName);
+export async function registerToEvent(
+  command: RegistrationCommand
+): Promise<void> {
+  const satinitizedFirstName = satinizeFirstName(command.firstName);
   validateFirstName(satinitizedFirstName);
 
-  await registerAttendee(query);
+  await registerAttendee(command);
 }
 
 function satinizeFirstName(firstName: string) {
@@ -37,20 +39,20 @@ function validateFirstName(firstName: string) {
   }
 }
 
-async function registerAttendee(query: RegistrationQuery) {
+async function registerAttendee(command: RegistrationCommand) {
   const knexClient = await getKnexClient();
 
   const attendeesRepository = new AttendeesRepository(knexClient);
   const attendeeId = await attendeesRepository.add({
-    first_name: query.firstName,
-    last_name: query.lastName,
+    first_name: command.firstName,
+    last_name: command.lastName,
   });
 
   const registerRepository = new RegistrationsRepository(knexClient);
   await registerRepository.add(1, attendeeId);
 }
 
-export interface RegistrationQuery {
+export interface RegistrationCommand {
   lastName: string;
   firstName: string;
 }
