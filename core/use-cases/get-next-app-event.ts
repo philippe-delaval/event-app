@@ -1,6 +1,6 @@
-import { AppEvent } from "../models/app_event";
+import { AppEvent } from "../models/app-event";
 import { getKnexClient } from "../lib/knex";
-import { AppEventsRepository } from "../repositories/app_events_repository";
+import { AppEventsRepository } from "../repositories/app-events-repository";
 
 export async function getNextAppEvent(): Promise<AppEvent> {
   const knexClient = await getKnexClient();

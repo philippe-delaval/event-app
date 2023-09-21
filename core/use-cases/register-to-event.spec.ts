@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { registerToEvent } from "./register_to_event";
+import { registerToEvent } from "./register-to-event";
 import { getKnexClient } from "../lib/knex";
 
 let knexClient: Knex;
