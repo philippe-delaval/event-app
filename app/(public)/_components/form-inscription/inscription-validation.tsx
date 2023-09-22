@@ -1,6 +1,6 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
-export default function ValidationInscriptionPage() {
+export default function InscriptionValidation() {
   return (
     <div className="rounded-md bg-green-50 p-4">
       <div className="flex">

@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { CoreUseCases } from "../../../../core/use-cases";
 import { ZodError } from "zod";
 
@@ -13,10 +12,13 @@ export async function formInscriptionAction(formData: FormData) {
   } catch (error) {
     if (error instanceof ZodError) {
       return {
+        success: false,
         errors: error.errors,
       };
     }
   }
 
-  redirect("/validation-inscription");
+  return {
+    success: true,
+  };
 }

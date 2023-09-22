@@ -1,8 +1,31 @@
+"use client";
+
+import { useState } from "react";
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
 import { formInscriptionAction } from "./form-inscription-action";
+import { ZodIssue } from "zod";
+import InscriptionValidation from "./inscription-validation";
 
-export default async function FormInscription() {
+export default function FormInscription() {
+  const [successfullInscription, setSuccessfullInscription] = useState(false);
+  const [errors, setErrors] = useState([] as ZodIssue[]);
+
+  async function onSubmit(formData: FormData) {
+    const res = await formInscriptionAction(formData);
+
+    if (!res.success) {
+      setErrors(res.errors ?? []);
+      return;
+    }
+
+    setSuccessfullInscription(true);
+  }
+
+  if (successfullInscription) {
+    return <InscriptionValidation />;
+  }
+
   return (
     <div className="bg-background-grey pb-10">
       <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:px-8">
@@ -18,7 +41,8 @@ export default async function FormInscription() {
           </div>
         </div>
         <div className="mx-auto max-w-3xl">
-          <form action={formInscriptionAction} method="post">
+          <p>{errors.map((issue) => `${issue.path} is ${issue.message}`)}</p>
+          <form action={onSubmit} method="post">
             <div className="space-y-12 sm:space-y-16">
               <div>
                 <h2 className="text-base font-semibold leading-7 text-gray-900">
