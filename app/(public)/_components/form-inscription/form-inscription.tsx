@@ -1,17 +1,8 @@
-import { CoreUseCases } from "../../../../core/use-cases";
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
+import { formInscriptionAction } from "./form-inscription-action";
 
 export default async function FormInscription() {
-  async function create(formData: FormData) {
-    "use server";
-
-    await CoreUseCases.registerToEvent({
-      firstName: formData.get("first-name")?.toString() ?? "",
-      lastName: formData.get("last-name")?.toString() ?? "",
-    });
-  }
-
   return (
     <div className="bg-background-grey pb-10">
       <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:px-8">
@@ -27,7 +18,7 @@ export default async function FormInscription() {
           </div>
         </div>
         <div className="mx-auto max-w-3xl">
-          <form action={create} method="post">
+          <form action={formInscriptionAction} method="post">
             <div className="space-y-12 sm:space-y-16">
               <div>
                 <h2 className="text-base font-semibold leading-7 text-gray-900">
