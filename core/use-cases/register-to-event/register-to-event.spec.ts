@@ -1,12 +1,13 @@
 import { Knex } from "knex";
-import { registerToEvent } from "./register-to-event.use-case";
 import { getKnexClient } from "@/core/lib/knex";
 import { ZodError } from "zod";
+import { CoreUseCases } from "..";
 
 let knexClient: Knex;
 
 beforeAll(async () => {
   knexClient = await getKnexClient();
+  await knexClient.migrate.latest();
 });
 
 afterEach(async () => {
@@ -23,7 +24,7 @@ describe("When an attendee registers for an event", () => {
   it("registers a new attendee", async () => {
     await addNextEvent();
 
-    await registerToEvent({
+    await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
     });
@@ -41,7 +42,7 @@ describe("When an attendee registers for an event", () => {
   it("adds a new registration", async () => {
     await addNextEvent();
 
-    await registerToEvent({
+    await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
     });
@@ -58,11 +59,11 @@ describe("When an attendee registers for an event", () => {
   it("can add multiple attendees to the same event", async () => {
     await addNextEvent();
 
-    await registerToEvent({
+    await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
     });
-    await registerToEvent({
+    await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
     });
@@ -85,7 +86,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "F",
           lastName: "Doe",
         })
@@ -98,7 +99,7 @@ describe("When an attendee registers for an event", () => {
       const longName = "A".repeat(251);
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: longName,
           lastName: "Doe",
         })
@@ -109,7 +110,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Anne-Marie",
           lastName: "Doe",
         })
@@ -120,7 +121,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Bob@",
           lastName: "Doe",
         })
@@ -131,7 +132,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "",
           lastName: "Bar",
         })
@@ -142,7 +143,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo1",
           lastName: "Bar",
         })
@@ -153,7 +154,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: " Foo ",
           lastName: "Bar",
         })
@@ -166,7 +167,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo",
           lastName: "D",
         })
@@ -179,7 +180,7 @@ describe("When an attendee registers for an event", () => {
       const longName = "A".repeat(251);
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo",
           lastName: longName,
         })
@@ -190,7 +191,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Anne-Marie",
           lastName: "De-la-Villardière",
         })
@@ -201,7 +202,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Bob",
           lastName: "Doe@",
         })
@@ -212,7 +213,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo",
           lastName: "",
         })
@@ -223,7 +224,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       expect(() =>
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo",
           lastName: "Bar1",
         })
@@ -234,7 +235,7 @@ describe("When an attendee registers for an event", () => {
       await addNextEvent();
 
       await expect(
-        registerToEvent({
+        CoreUseCases.registerToEvent({
           firstName: "Foo",
           lastName: " Bar ",
         })

@@ -1,12 +1,12 @@
+import { CoreUseCases } from "../../../../core/use-cases";
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
-import { registerToEvent } from "@/core/use-cases/register-to-event/register-to-event.use-case";
 
 export default async function FormInscription() {
   async function create(formData: FormData) {
     "use server";
 
-    await registerToEvent({
+    await CoreUseCases.registerToEvent({
       firstName: formData.get("first-name")?.toString() ?? "",
       lastName: formData.get("last-name")?.toString() ?? "",
     });
