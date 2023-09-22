@@ -1,15 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
-import { subscribeToEvent } from "../../../../core/use_cases/subscribe_to_event";
+import { formInscriptionAction } from "./form-inscription-action";
+import { ZodIssue } from "zod";
+import InscriptionValidation from "./inscription-validation";
 
-export default async function FormInscription() {
-  async function create(formData: FormData) {
-    "use server";
+export default function FormInscription() {
+  const [successfullInscription, setSuccessfullInscription] = useState(false);
+  const [errors, setErrors] = useState([] as ZodIssue[]);
 
-    await subscribeToEvent({
-      first_name: formData.get("first-name")?.toString() ?? "",
-      last_name: formData.get("last-name")?.toString() ?? "",
-    });
+  async function onSubmit(formData: FormData) {
+    const res = await formInscriptionAction(formData);
+
+    if (!res.success) {
+      setErrors(res.errors ?? []);
+      return;
+    }
+
+    setSuccessfullInscription(true);
+  }
+
+  if (successfullInscription) {
+    return <InscriptionValidation />;
   }
 
   return (
@@ -27,7 +41,8 @@ export default async function FormInscription() {
           </div>
         </div>
         <div className="mx-auto max-w-3xl">
-          <form action={create} method="post">
+          <p>{errors.map((issue) => `${issue.path} is ${issue.message}`)}</p>
+          <form action={onSubmit} method="post">
             <div className="space-y-12 sm:space-y-16">
               <div>
                 <h2 className="text-base font-semibold leading-7 text-gray-900">

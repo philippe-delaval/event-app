@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Bebas Neue Cyrillic';
-    src: url('/public/assets/fonts/Bebas Neue Cyrillic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Bebas Neue Cyrillic";
+  src: url("/assets/fonts/Bebas Neue Cyrillic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

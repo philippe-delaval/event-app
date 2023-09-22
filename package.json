@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{js,ts,tsx}'",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint './src/**/*.{js,ts,tsx}'",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
     "db:setup": "npm run db:migrate && npm run db:seed",
@@ -33,7 +34,8 @@
     "react-hook-form": "^7.45.2",
     "react-infinite-logo-slider": "^1.0.13",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",

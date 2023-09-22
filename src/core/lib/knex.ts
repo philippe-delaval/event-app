@@ -2,10 +2,10 @@ import { Knex, knex } from "knex";
 
 let knexClient: Knex;
 
-export async function getKnexClient(): Promise<Knex> {
+export function getKnexClient(): Knex {
   if (!knexClient) {
     if (process.env.NODE_ENV === "test") {
-      knexClient = await makeTestKnexClient();
+      knexClient = makeTestKnexClient();
     } else {
       knexClient = makeKnexClient();
     }
@@ -14,14 +14,12 @@ export async function getKnexClient(): Promise<Knex> {
   return knexClient;
 }
 
-export async function makeTestKnexClient(): Promise<Knex> {
+export function makeTestKnexClient(): Knex {
   const inMemoryClient = knex({
     client: "sqlite3",
     connection: ":memory:",
     useNullAsDefault: true,
   });
-
-  await inMemoryClient.migrate.latest();
 
   return inMemoryClient;
 }
