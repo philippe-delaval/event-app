@@ -5,14 +5,17 @@ export class AttendeesRepository {
   async add({
     first_name,
     last_name,
+    email,
   }: {
     first_name: string;
-    last_name: string;
+      last_name: string;
+      email: string;
   }): Promise<number> {
     const attendeeIds = await this.knex("attendees")
       .insert({
         first_name,
         last_name,
+        email,
       })
       .returning("id");
 

@@ -8,6 +8,7 @@ export async function formInscriptionAction(formData: FormData) {
     await CoreUseCases.registerToEvent({
       firstName: formData.get("first-name")?.toString() ?? "",
       lastName: formData.get("last-name")?.toString() ?? "",
+      email: formData.get("email")?.toString() ?? ""
     });
   } catch (error) {
     if (error instanceof ZodError) {

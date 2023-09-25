@@ -6,6 +6,7 @@ import LastName from "./fields/lastname";
 import { formInscriptionAction } from "./form-inscription-action";
 import { ZodIssue } from "zod";
 import InscriptionValidation from "./inscription-validation";
+import Email from "./fields/email";
 
 export default function FormInscription() {
   const [successfullInscription, setSuccessfullInscription] = useState(false);
@@ -56,6 +57,7 @@ export default function FormInscription() {
                 <div className="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
                   <FirstName />
                   <LastName />
+                  <Email />
                 </div>
               </div>
             </div>
@@ -65,7 +67,7 @@ export default function FormInscription() {
                   type="submit"
                   className="rounded-md bg-primary-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-secondary-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  Valider mon inscription et générer mon e-billet
+                  Valider mon inscription
                 </button>
               </div>
             </div>

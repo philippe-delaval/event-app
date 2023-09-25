@@ -22,8 +22,12 @@ describe("RegistrationCommand validation", () => {
     { name: "Bar1", reason: "contains numbers" },
   ];
 
-  describe("First name validations", () => {
-    test.each(validFirstNames)(
+  const validEmail = "toto@titi.fr";
+
+  const invalidEmails = ["@titi.fr", "toto@titi", "toto@", "tototiti.fr"];
+
+  describe("First name validation", () => {
+    it.each(validFirstNames)(
       "accepts a valid first name like %p",
       (firstName) => {
         expect(
@@ -31,24 +35,26 @@ describe("RegistrationCommand validation", () => {
             new RegistrationCommand({
               firstName,
               lastName: "Doe",
+              email: validEmail,
             })
         ).not.toThrow();
       }
     );
 
-    test.each(invalidFirstNames)("rejects a first name %p", ({ name }) => {
+    it.each(invalidFirstNames)("rejects a first name %p", ({ name }) => {
       expect(
         () =>
           new RegistrationCommand({
             firstName: name,
             lastName: "Doe",
+            email: validEmail,
           })
       ).toThrow(ZodError);
     });
   });
 
-  describe("Last name validations", () => {
-    test.each(validLastNames)(
+  describe("Last name validation", () => {
+    it.each(validLastNames)(
       "accepts a valid last name like %p",
       (lastName) => {
         expect(
@@ -56,19 +62,48 @@ describe("RegistrationCommand validation", () => {
             new RegistrationCommand({
               firstName: "John",
               lastName,
+              email: validEmail,
             })
         ).not.toThrow();
       }
     );
 
-    test.each(invalidLastNames)("rejects a last name %p", ({ name }) => {
+    it.each(invalidLastNames)("rejects a last name %p", ({ name }) => {
       expect(
         () =>
           new RegistrationCommand({
             firstName: "John",
             lastName: name,
+            email: validEmail,
           })
       ).toThrow(ZodError);
     });
   });
+
+  describe("Email validation", () => {
+    it("accepts a valid email", () => {
+      expect(
+          () =>
+            new RegistrationCommand({
+              firstName: "John",
+              lastName: "Doe",
+              email: validEmail,
+            })
+        ).not.toThrow();
+    })
+  
+    it.each(invalidEmails)("rejects an invalid email %s", ( email ) => {
+      expect(
+        () =>
+          new RegistrationCommand({
+            firstName: "John",
+            lastName: "Doe",
+            email,
+          })
+      ).toThrow(ZodError);
+    })
+
+  })
 });
+
+
