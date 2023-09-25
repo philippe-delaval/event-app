@@ -17,6 +17,7 @@ export async function registerToEventUseCase(
   const attendeeId = await dependencies.attendeesRepository.add({
     first_name: command.firstName,
     last_name: command.lastName,
+    email: command.email,
   });
   await dependencies.registrationsRepository.add(1, attendeeId);
 }
