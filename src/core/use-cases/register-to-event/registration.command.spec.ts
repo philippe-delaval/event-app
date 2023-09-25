@@ -22,7 +22,9 @@ describe("RegistrationCommand validation", () => {
     { name: "Bar1", reason: "contains numbers" },
   ];
 
-  describe("First name validations", () => {
+  const validEmail = "toto@titi.fr"
+
+  describe("First name validation", () => {
     test.each(validFirstNames)(
       "accepts a valid first name like %p",
       (firstName) => {
@@ -31,6 +33,7 @@ describe("RegistrationCommand validation", () => {
             new RegistrationCommand({
               firstName,
               lastName: "Doe",
+              email: validEmail,
             })
         ).not.toThrow();
       }
@@ -42,12 +45,13 @@ describe("RegistrationCommand validation", () => {
           new RegistrationCommand({
             firstName: name,
             lastName: "Doe",
+            email: validEmail,
           })
       ).toThrow(ZodError);
     });
   });
 
-  describe("Last name validations", () => {
+  describe("Last name validation", () => {
     test.each(validLastNames)(
       "accepts a valid last name like %p",
       (lastName) => {
@@ -56,6 +60,7 @@ describe("RegistrationCommand validation", () => {
             new RegistrationCommand({
               firstName: "John",
               lastName,
+              email: validEmail,
             })
         ).not.toThrow();
       }
@@ -67,8 +72,22 @@ describe("RegistrationCommand validation", () => {
           new RegistrationCommand({
             firstName: "John",
             lastName: name,
+            email: validEmail,
           })
       ).toThrow(ZodError);
     });
   });
+
+  describe("Email validation", () => {
+    it("accepts a valid email", () => {
+      expect(
+          () =>
+            new RegistrationCommand({
+              firstName: "John",
+              lastName: "Doe",
+              email: validEmail,
+            })
+        ).not.toThrow();
+    } )
+  })
 });

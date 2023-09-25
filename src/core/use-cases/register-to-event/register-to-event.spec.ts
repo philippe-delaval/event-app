@@ -26,6 +26,7 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
+      email: "toto@titi.fr"
     });
 
     const attendeeResult = await knexClient("attendees").select("*");
@@ -44,6 +45,7 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
+      email: "toto@titi.fr"
     });
 
     const registerResult = await knexClient("registrations").select("*");
@@ -61,10 +63,12 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
+      email: "toto@titi.fr"
     });
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
+      email: "toto@titi.fr"
     });
 
     const registerResult = await knexClient("registrations").select("*");
