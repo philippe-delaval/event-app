@@ -42,7 +42,11 @@ export default function FormInscription() {
           </div>
         </div>
         <div className="mx-auto max-w-3xl">
-          <p>{errors.map((issue) => `${issue.path} is ${issue.message}`)}</p>
+          <p>
+            {errors.length === 0
+              ? "une erreur est survenue"
+              : errors.map((issue) => `${issue.path} is ${issue.message}`)}
+          </p>
           <form action={onSubmit} method="post">
             <div className="space-y-12 sm:space-y-16">
               <div>
