@@ -26,7 +26,7 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
-      email: "toto@titi.fr"
+      email: "toto@titi.fr",
     });
 
     const attendeeResult = await knexClient("attendees").select("*");
@@ -35,7 +35,7 @@ describe("When an attendee registers for an event", () => {
         id: 1,
         first_name: "Foo",
         last_name: "Bar",
-        email:"toto@titi.fr",
+        email: "toto@titi.fr",
       },
     ]);
   });
@@ -46,7 +46,7 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
-      email: "toto@titi.fr"
+      email: "toto@titi.fr",
     });
 
     const registerResult = await knexClient("registrations").select("*");
@@ -64,12 +64,12 @@ describe("When an attendee registers for an event", () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
-      email: "toto@titi.fr"
+      email: "toto@titi.fr",
     });
     await CoreUseCases.registerToEvent({
-      firstName: "Foo",
-      lastName: "Bar",
-      email: "toto@titi.fr"
+      firstName: "Paul",
+      lastName: "Sucre",
+      email: "paul@sucre.fr",
     });
 
     const registerResult = await knexClient("registrations").select("*");
@@ -83,6 +83,24 @@ describe("When an attendee registers for an event", () => {
         attendee_id: 2,
       },
     ]);
+  });
+
+  it("fails to register an attendee if the email is already registered", async () => {
+    await addNextEvent();
+
+    await CoreUseCases.registerToEvent({
+      firstName: "Foo",
+      lastName: "Bar",
+      email: "toto@titi.fr",
+    });
+
+    expect(() =>
+      CoreUseCases.registerToEvent({
+        firstName: "Foo",
+        lastName: "Bar",
+        email: "toto@titi.fr",
+      }),
+    ).rejects.toThrow("Email already registered");
   });
 });
 
