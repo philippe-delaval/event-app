@@ -141,7 +141,7 @@ export default function Dashboard() {
                                     item.current
                                       ? "bg-gray-50 text-primary-gray"
                                       : "text-gray-700 hover:text-primary-gray hover:bg-gray-50",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                                   )}
                                 >
                                   <item.icon
@@ -149,7 +149,7 @@ export default function Dashboard() {
                                       item.current
                                         ? "text-primary-orange"
                                         : "text-gray-400 group-hover:text-primary-orange",
-                                      "h-6 w-6 shrink-0"
+                                      "h-6 w-6 shrink-0",
                                     )}
                                     aria-hidden="true"
                                   />
@@ -172,7 +172,7 @@ export default function Dashboard() {
                                     team.current
                                       ? "bg-gray-50 text-primary-orange"
                                       : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                                   )}
                                 >
                                   <span
@@ -180,7 +180,7 @@ export default function Dashboard() {
                                       team.current
                                         ? "text-primary-orange border-primary-orange"
                                         : "text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-primary-orange",
-                                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white"
+                                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                                     )}
                                   >
                                     {team.initial}
@@ -235,7 +235,7 @@ export default function Dashboard() {
                             item.current
                               ? "bg-gray-50 text-primary-gray"
                               : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <item.icon
@@ -243,7 +243,7 @@ export default function Dashboard() {
                               item.current
                                 ? "text-primary-orange"
                                 : "text-gray-400 group-hover:text-primary-orange",
-                              "h-6 w-6 shrink-0"
+                              "h-6 w-6 shrink-0",
                             )}
                             aria-hidden="true"
                           />
@@ -266,7 +266,7 @@ export default function Dashboard() {
                             team.current
                               ? "bg-gray-50 text-primary-gray"
                               : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <span
@@ -274,7 +274,7 @@ export default function Dashboard() {
                               team.current
                                 ? "text-primary-orange border-primary-orange"
                                 : "text-gray-400 border-gray-200 group-hover:border-primary-orange group-hover:text-primary-orange",
-                              "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white"
+                              "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                             )}
                           >
                             {team.initial}
@@ -390,7 +390,7 @@ export default function Dashboard() {
                               href={item.href}
                               className={classNames(
                                 active ? "bg-gray-50" : "",
-                                "block px-3 py-1 text-sm leading-6 text-gray-900"
+                                "block px-3 py-1 text-sm leading-6 text-gray-900",
                               )}
                             >
                               {item.name}

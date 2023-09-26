@@ -3,16 +3,15 @@ import Footer from "@/app/(public)/_components/footer/footer";
 import React from "react";
 
 export default function HomePageLayout({
-                                           children,
-                                       }: {
-    children: React.ReactNode
+  children,
+}: {
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <Navigation/>
-            <section>{children}</section>
-            <Footer/>
-        </>
-    )
-
+  return (
+    <>
+      <Navigation />
+      <section>{children}</section>
+      <Footer />
+    </>
+  );
 }

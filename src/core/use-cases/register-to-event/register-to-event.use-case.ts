@@ -10,7 +10,7 @@ export async function registerToEventUseCase(
     attendeesRepository: AttendeesRepository;
     registrationsRepository: RegistrationsRepository;
   },
-  commandDto: RegistrationCommandDto
+  commandDto: RegistrationCommandDto,
 ): Promise<void> {
   const command = new RegistrationCommand(commandDto);
 
