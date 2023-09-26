@@ -8,6 +8,11 @@ services:
     command: npm run dev
     environment:
       - POSTGRES_URL=postgresql://postgres:example@db/postgres?sslmode=disable
+      - SMTP_HOST=mailcatcher
+      - SMTP_PORT=1025
+      - SMTP_USER=dummy@mail.com
+      - SMTP_PASSWORD=dummy
+      - SMTP_SECURE=false
     ports:
       - "127.0.0.1:3000:3000"
   db:
@@ -38,5 +43,9 @@ services:
       - db
     environment:
       ADMINER_DEFAULT_SERVER: postgres
+  mailcatcher:
+    image: dockage/mailcatcher
+    ports:
+      - "127.0.0.1:1080:1080"
 volumes:
   pgdata:
