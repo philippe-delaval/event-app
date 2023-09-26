@@ -20,9 +20,11 @@ afterAll(async () => {
 });
 
 describe("When an attendee registers for an event", () => {
-  it("registers a new attendee", async () => {
+  beforeEach(async () => {
     await addNextEvent();
+  });
 
+  it("registers a new attendee", async () => {
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
@@ -41,8 +43,6 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("adds a new registration", async () => {
-    await addNextEvent();
-
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
@@ -59,8 +59,6 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("can add multiple attendees to the same event", async () => {
-    await addNextEvent();
-
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
@@ -86,8 +84,6 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("fails to register an attendee if the email is already registered", async () => {
-    await addNextEvent();
-
     await CoreUseCases.registerToEvent({
       firstName: "Foo",
       lastName: "Bar",
@@ -99,7 +95,7 @@ describe("When an attendee registers for an event", () => {
         firstName: "Foo",
         lastName: "Bar",
         email: "toto@titi.fr",
-      }),
+      })
     ).rejects.toThrow("Email already registered");
   });
 });

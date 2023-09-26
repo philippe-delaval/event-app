@@ -1,4 +1,5 @@
 import { Knex, knex } from "knex";
+import { getEnvVariable } from "./env.lib";
 
 let knexClient: Knex;
 
@@ -28,19 +29,11 @@ function makeKnexClient(): Knex {
   return knex({
     client: "pg",
     connection: {
-      connectionString: getPostgresUrl(),
+      connectionString: getEnvVariable("POSTGRES_URL"),
       ssl: {
         rejectUnauthorized: false,
       },
     },
     searchPath: ["knex", "public"],
   });
-}
-
-function getPostgresUrl() {
-  if (!process.env.POSTGRES_URL) {
-    throw new Error("POSTGRES_URL not set");
-  }
-
-  return process.env.POSTGRES_URL;
 }
