@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit --incremental",
-    "lint": "eslint './src/**/*.{js,ts,tsx}'",
+    "lint": "eslint './src/**/*.{js,ts,tsx}' --cache",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
     "db:setup": "npm run db:migrate && npm run db:seed",
