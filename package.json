@@ -11,6 +11,8 @@
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
     "db:setup": "npm run db:migrate && npm run db:seed",
+    "format:check": "prettier --check './src/**/*.{ts,tsx}' './migrations/*.js'",
+    "format:write": "prettier --write './src/**/*.{ts,tsx}' './migrations/*.js'",
     "prepare": "husky install",
     "test": "vitest --run",
     "test:watch": "vitest --watch"
