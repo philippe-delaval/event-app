@@ -14,6 +14,6 @@ export const CoreUseCases = {
         attendeesRepository: CoreRepositories.attendeesRepository,
         registrationsRepository: CoreRepositories.registrationsRepository,
       },
-      commandDto
+      commandDto,
     ),
 };

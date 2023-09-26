@@ -1,7 +1,7 @@
-import { getKnexClient } from "../lib/knex";
-import { AppEventsRepository } from "./app-events-repository";
-import { AttendeesRepository } from "./attendees-repository";
-import { RegistrationsRepository } from "./registrations-repository";
+import { getKnexClient } from "../lib/knex.lib";
+import { AppEventsRepository } from "./app-events.repository";
+import { AttendeesRepository } from "./attendees.repository";
+import { RegistrationsRepository } from "./registrations.repository";
 
 const knexClient = getKnexClient();
 

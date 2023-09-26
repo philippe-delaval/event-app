@@ -1,5 +1,5 @@
-import { AttendeesRepository } from "@/core/repositories/attendees-repository";
-import { RegistrationsRepository } from "@/core/repositories/registrations-repository";
+import { AttendeesRepository } from "@/core/repositories/attendees.repository";
+import { RegistrationsRepository } from "@/core/repositories/registrations.repository";
 import {
   RegistrationCommand,
   RegistrationCommandDto,
@@ -10,7 +10,7 @@ export async function registerToEventUseCase(
     attendeesRepository: AttendeesRepository;
     registrationsRepository: RegistrationsRepository;
   },
-  commandDto: RegistrationCommandDto
+  commandDto: RegistrationCommandDto,
 ): Promise<void> {
   const command = new RegistrationCommand(commandDto);
 
