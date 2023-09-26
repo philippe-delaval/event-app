@@ -4,6 +4,9 @@ import {
   RegistrationCommand,
   RegistrationCommandDto,
 } from "./registration.command";
+import { EmailSender } from "@/core/lib/email-sender.lib";
+
+
 
 export async function registerToEventUseCase(
   dependencies: {
@@ -20,4 +23,9 @@ export async function registerToEventUseCase(
     email: command.email,
   });
   await dependencies.registrationsRepository.add(1, attendeeId);
+
+  const emailSender = new EmailSender();
+  await emailSender.send({to: command.email,subject: 'Confirmation inscription',text: `<p>Merci pour votre inscription !</p>`});
 }
+
+
