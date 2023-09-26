@@ -6,26 +6,29 @@ import {
 } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
 
-
-
 export async function registerToEventUseCase(
   dependencies: {
     attendeesRepository: AttendeesRepository;
     registrationsRepository: RegistrationsRepository;
+    emailSender: EmailSender;
   },
   commandDto: RegistrationCommandDto,
 ): Promise<void> {
   const command = new RegistrationCommand(commandDto);
 
-  const attendeeId = await dependencies.attendeesRepository.add({
+  const { attendeesRepository, registrationsRepository, emailSender } =
+    dependencies;
+
+  const attendeeId = await attendeesRepository.add({
     first_name: command.firstName,
     last_name: command.lastName,
     email: command.email,
   });
-  await dependencies.registrationsRepository.add(1, attendeeId);
+  await registrationsRepository.add(1, attendeeId);
 
-  const emailSender = new EmailSender();
-  await emailSender.send({to: command.email,subject: 'Confirmation inscription',text: `<p>Merci pour votre inscription !</p>`});
+  await emailSender.send({
+    to: command.email,
+    subject: "Confirmation inscription",
+    text: `<p>Merci pour votre inscription !</p>`,
+  });
 }
-
-

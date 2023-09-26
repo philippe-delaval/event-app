@@ -1,13 +1,13 @@
 "use server";
 
-import { CoreUseCases } from "@/core/use-cases";
+import { CoreUseCasesLive } from "@/core/use-cases";
 import { ZodError } from "zod";
 
 export async function formInscriptionAction(
   formData: FormData,
 ): Promise<ActionResponse> {
   try {
-    await CoreUseCases.registerToEvent({
+    await CoreUseCasesLive.registerToEvent({
       firstName: formData.get("first-name")?.toString() ?? "",
       lastName: formData.get("last-name")?.toString() ?? "",
       email: formData.get("email")?.toString() ?? "",
