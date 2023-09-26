@@ -29,6 +29,6 @@ export async function registerToEventUseCase(
   await emailSender.send({
     to: command.email,
     subject: "Confirmation inscription",
-    text: `<p>Merci pour votre inscription !</p>`,
+    text: "Merci pour votre inscription !",
   });
 }

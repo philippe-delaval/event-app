@@ -7,22 +7,24 @@ import { RegistrationCommandDto } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
 
 let knexClient: Knex;
+let emailSenderStub: EmailSender;
 let registerToEventUseCaseTest: (
   command: RegistrationCommandDto,
 ) => Promise<void>;
 
 beforeAll(async () => {
-  knexClient = await getKnexClient();
+  knexClient = getKnexClient();
   await knexClient.migrate.latest();
+  emailSenderStub = {
+    send: vitest.fn(),
+  } as unknown as EmailSender;
 
   registerToEventUseCaseTest = (command: RegistrationCommandDto) =>
     registerToEventUseCase(
       {
         attendeesRepository: new AttendeesRepository(knexClient),
         registrationsRepository: new RegistrationsRepository(knexClient),
-        emailSender: {
-          send: vitest.fn(),
-        } as unknown as EmailSender,
+        emailSender: emailSenderStub,
       },
       command,
     );
@@ -116,6 +118,22 @@ describe("When an attendee registers for an event", () => {
         email: "toto@titi.fr",
       }),
     ).rejects.toThrow("Email already registered");
+  });
+
+  it("sends a confirmation email", async () => {
+    const attendeeEmail = "toto@titi.fr";
+
+    await registerToEventUseCaseTest({
+      firstName: "Foo",
+      lastName: "Bar",
+      email: attendeeEmail,
+    });
+
+    expect(emailSenderStub.send).toHaveBeenCalledWith({
+      to: attendeeEmail,
+      subject: "Confirmation inscription",
+      text: "Merci pour votre inscription !",
+    });
   });
 });
 
