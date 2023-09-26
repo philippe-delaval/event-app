@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { getKnexClient } from "@/core/lib/knex";
+import { getKnexClient } from "@/core/lib/knex.lib";
 import { CoreUseCases } from "..";
 
 let knexClient: Knex;
@@ -99,7 +99,7 @@ describe("When an attendee registers for an event", () => {
         firstName: "Foo",
         lastName: "Bar",
         email: "toto@titi.fr",
-      }),
+      })
     ).rejects.toThrow("Email already registered");
   });
 });

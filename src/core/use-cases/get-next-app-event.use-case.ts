@@ -1,5 +1,5 @@
 import { AppEvent } from "../models/app-event";
-import { AppEventsRepository } from "../repositories/app-events-repository";
+import { AppEventsRepository } from "../repositories/app-events.repository";
 
 export async function getNextAppEventUseCase(dependencies: {
   appEventsRepository: AppEventsRepository;
