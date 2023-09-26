@@ -17,6 +17,9 @@ export async function formInscriptionAction(formData: FormData) {
         errors: error.errors,
       };
     }
+
+    console.error(error);
+
     return {
       success: false,
       errors: [],
