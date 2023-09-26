@@ -3,7 +3,9 @@
 import { CoreUseCases } from "@/core/use-cases";
 import { ZodError } from "zod";
 
-export async function formInscriptionAction(formData: FormData) {
+export async function formInscriptionAction(
+  formData: FormData,
+): Promise<ActionResponse> {
   try {
     await CoreUseCases.registerToEvent({
       firstName: formData.get("first-name")?.toString() ?? "",
@@ -14,7 +16,10 @@ export async function formInscriptionAction(formData: FormData) {
     if (error instanceof ZodError) {
       return {
         success: false,
-        errors: error.errors,
+        errors: error.errors.map((error) => ({
+          path: error.path.join("."),
+          message: error.message,
+        })),
       };
     }
 
@@ -22,11 +27,24 @@ export async function formInscriptionAction(formData: FormData) {
 
     return {
       success: false,
-      errors: [],
+      errors: [
+        {
+          path: "unknown",
+          message: "An unexpected error occurred. Please try again later.",
+        },
+      ],
     };
   }
 
   return {
     success: true,
   };
+}
+
+export interface ActionResponse {
+  success: boolean;
+  errors?: {
+    path: string;
+    message: string;
+  }[];
 }

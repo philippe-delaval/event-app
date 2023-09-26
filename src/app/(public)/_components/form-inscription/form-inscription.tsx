@@ -4,13 +4,17 @@ import { useState } from "react";
 import FirstName from "./fields/firstname";
 import LastName from "./fields/lastname";
 import { formInscriptionAction } from "./form-inscription-action";
-import { ZodIssue } from "zod";
 import InscriptionValidation from "./inscription-validation";
 import Email from "./fields/email";
 
 export default function FormInscription() {
   const [successfullInscription, setSuccessfullInscription] = useState(false);
-  const [errors, setErrors] = useState([] as ZodIssue[]);
+  const [errors, setErrors] = useState<
+    ReadonlyArray<{
+      path: string;
+      message: string;
+    }>
+  >([]);
 
   async function onSubmit(formData: FormData) {
     const res = await formInscriptionAction(formData);
@@ -42,11 +46,7 @@ export default function FormInscription() {
           </div>
         </div>
         <div className="mx-auto max-w-3xl">
-          <p>
-            {errors.length === 0
-              ? "une erreur est survenue"
-              : errors.map((issue) => `${issue.path} is ${issue.message}`)}
-          </p>
+          <p>{errors.map((issue) => `${issue.path} is ${issue.message}`)}</p>
           <form action={onSubmit} method="post">
             <div className="space-y-12 sm:space-y-16">
               <div>
