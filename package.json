@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --incremental",
     "lint": "eslint './src/**/*.{js,ts,tsx}'",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run",
