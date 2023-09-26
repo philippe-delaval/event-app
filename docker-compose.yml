@@ -44,7 +44,7 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: postgres
   mailcatcher:
-    image: dockage/mailcatcher
+    image: schickling/mailcatcher
     ports:
       - "127.0.0.1:1080:1080"
 volumes:
