@@ -5,7 +5,7 @@ import { RegistrationsRepository } from "./registrations.repository";
 
 const knexClient = getKnexClient();
 
-export const CoreRepositories = {
+export const CoreRepositoriesLive = {
   attendeesRepository: new AttendeesRepository(knexClient),
   appEventsRepository: new AppEventsRepository(knexClient),
   registrationsRepository: new RegistrationsRepository(knexClient),

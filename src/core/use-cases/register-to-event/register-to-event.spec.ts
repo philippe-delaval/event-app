@@ -1,12 +1,33 @@
 import { Knex } from "knex";
 import { getKnexClient } from "@/core/lib/knex.lib";
-import { CoreUseCases } from "..";
+import { registerToEventUseCase } from "./register-to-event.use-case";
+import { AttendeesRepository } from "@/core/repositories/attendees.repository";
+import { RegistrationsRepository } from "@/core/repositories/registrations.repository";
+import { RegistrationCommandDto } from "./registration.command";
+import { EmailSender } from "@/core/lib/email-sender.lib";
 
 let knexClient: Knex;
+let emailSenderStub: EmailSender;
+let registerToEventUseCaseTest: (
+  command: RegistrationCommandDto,
+) => Promise<void>;
 
 beforeAll(async () => {
-  knexClient = await getKnexClient();
+  knexClient = getKnexClient();
   await knexClient.migrate.latest();
+  emailSenderStub = {
+    send: vitest.fn(),
+  } as unknown as EmailSender;
+
+  registerToEventUseCaseTest = (command: RegistrationCommandDto) =>
+    registerToEventUseCase(
+      {
+        attendeesRepository: new AttendeesRepository(knexClient),
+        registrationsRepository: new RegistrationsRepository(knexClient),
+        emailSender: emailSenderStub,
+      },
+      command,
+    );
 });
 
 afterEach(async () => {
@@ -25,7 +46,7 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("registers a new attendee", async () => {
-    await CoreUseCases.registerToEvent({
+    await registerToEventUseCaseTest({
       firstName: "Foo",
       lastName: "Bar",
       email: "toto@titi.fr",
@@ -43,7 +64,7 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("adds a new registration", async () => {
-    await CoreUseCases.registerToEvent({
+    await registerToEventUseCaseTest({
       firstName: "Foo",
       lastName: "Bar",
       email: "toto@titi.fr",
@@ -59,12 +80,12 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("can add multiple attendees to the same event", async () => {
-    await CoreUseCases.registerToEvent({
+    await registerToEventUseCaseTest({
       firstName: "Foo",
       lastName: "Bar",
       email: "toto@titi.fr",
     });
-    await CoreUseCases.registerToEvent({
+    await registerToEventUseCaseTest({
       firstName: "Paul",
       lastName: "Sucre",
       email: "paul@sucre.fr",
@@ -84,19 +105,35 @@ describe("When an attendee registers for an event", () => {
   });
 
   it("fails to register an attendee if the email is already registered", async () => {
-    await CoreUseCases.registerToEvent({
+    await registerToEventUseCaseTest({
       firstName: "Foo",
       lastName: "Bar",
       email: "toto@titi.fr",
     });
 
     expect(() =>
-      CoreUseCases.registerToEvent({
+      registerToEventUseCaseTest({
         firstName: "Foo",
         lastName: "Bar",
         email: "toto@titi.fr",
       }),
     ).rejects.toThrow("Email already registered");
+  });
+
+  it("sends a confirmation email", async () => {
+    const attendeeEmail = "toto@titi.fr";
+
+    await registerToEventUseCaseTest({
+      firstName: "Foo",
+      lastName: "Bar",
+      email: attendeeEmail,
+    });
+
+    expect(emailSenderStub.send).toHaveBeenCalledWith({
+      to: attendeeEmail,
+      subject: "Confirmation inscription",
+      text: "Merci pour votre inscription !",
+    });
   });
 });
 

@@ -11,7 +11,7 @@ services:
       - SMTP_HOST=mailcatcher
       - SMTP_PORT=1025
       - SMTP_USER=dummy@mail.com
-      - SMTP_PASSWORD=dummy
+      - SMTP_PASS=dummy
       - SMTP_SECURE=false
     ports:
       - "127.0.0.1:3000:3000"
@@ -44,7 +44,7 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: postgres
   mailcatcher:
-    image: dockage/mailcatcher
+    image: schickling/mailcatcher
     ports:
       - "127.0.0.1:1080:1080"
 volumes:
