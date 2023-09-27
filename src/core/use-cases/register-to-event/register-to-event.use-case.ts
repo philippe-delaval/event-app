@@ -19,6 +19,13 @@ export async function registerToEventUseCase(
   const { attendeesRepository, registrationsRepository, emailSender } =
     dependencies;
 
+  const attendeeWithWantedEmail = await attendeesRepository.findByEmail(
+    command.email,
+  );
+  if (attendeeWithWantedEmail !== null) {
+    throw new Error("Email already registered");
+  }
+
   const attendeeId = await attendeesRepository.add({
     first_name: command.firstName,
     last_name: command.lastName,
