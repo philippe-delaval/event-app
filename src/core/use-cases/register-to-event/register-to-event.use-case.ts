@@ -5,6 +5,7 @@ import {
   RegistrationCommandDto,
 } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
+import { EmailAlreadyRegisteredError } from "./email-already-registered.error";
 
 export async function registerToEventUseCase(
   dependencies: {
@@ -43,7 +44,7 @@ async function checkEmailUnicity(
   );
 
   if (attendeeWithEmail !== null) {
-    throw new Error("Email already registered");
+    throw new EmailAlreadyRegisteredError();
   }
 }
 
