@@ -14,10 +14,8 @@ npm install
 docker compose up
 ```
 
-À noter qu'il est nécessaire de lancer ces commandes à chaque fois qu'on pull de nouvelles migrations (dossier `migrations`) ou de nouveaux seeds (dossier `seeds`).
+Ensuite, les services web suivants deviennent accessibles :
 
-```bash
-npm i -g knex # À faire si le CLI knex n'est pas installé en local
-knex migrate:up
-knex seed:run
-```
+- Le front [NextJS](https://nextjs.org/docs) sur http://localhost:3000
+- L'administrateur de base de données [Adminer](https://www.adminer.org/) sur http://localhost:8080
+- L'intercepteur d'emails [Mailcatcher](https://mailcatcher.me/) sur http://localhost:1080
