@@ -19,23 +19,43 @@ export async function registerToEventUseCase(
   const { attendeesRepository, registrationsRepository, emailSender } =
     dependencies;
 
-  const attendeeWithWantedEmail = await attendeesRepository.findByEmail(
-    command.email,
-  );
-  if (attendeeWithWantedEmail !== null) {
-    throw new Error("Email already registered");
-  }
+  await checkEmailUnicity(attendeesRepository, command);
 
-  const attendeeId = await attendeesRepository.add({
-    first_name: command.firstName,
-    last_name: command.lastName,
-    email: command.email,
-  });
-  await registrationsRepository.add(1, attendeeId);
+  await saveAttendeeAndRegistration(
+    attendeesRepository,
+    command,
+    registrationsRepository,
+  );
 
   await emailSender.send({
     to: command.email,
     subject: "Confirmation inscription",
     text: "Merci pour votre inscription !",
   });
+}
+
+async function checkEmailUnicity(
+  attendeesRepository: AttendeesRepository,
+  command: RegistrationCommand,
+) {
+  const attendeeWithEmail = await attendeesRepository.findByEmail(
+    command.email,
+  );
+
+  if (attendeeWithEmail !== null) {
+    throw new Error("Email already registered");
+  }
+}
+
+async function saveAttendeeAndRegistration(
+  attendeesRepository: AttendeesRepository,
+  command: RegistrationCommand,
+  registrationsRepository: RegistrationsRepository,
+) {
+  const attendeeId = await attendeesRepository.add({
+    first_name: command.firstName,
+    last_name: command.lastName,
+    email: command.email,
+  });
+  await registrationsRepository.add(1, attendeeId);
 }
