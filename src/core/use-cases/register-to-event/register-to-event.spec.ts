@@ -5,6 +5,7 @@ import { AttendeesRepository } from "@/core/repositories/attendees.repository";
 import { RegistrationsRepository } from "@/core/repositories/registrations.repository";
 import { RegistrationCommandDto } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
+import { EmailAlreadyRegisteredError } from "./email-already-registered.error";
 
 let knexClient: Knex;
 let emailSenderStub: EmailSender;
@@ -117,7 +118,7 @@ describe("When an attendee registers for an event", () => {
         lastName: "Bar",
         email: "toto@titi.fr",
       }),
-    ).rejects.toThrow("Email already registered");
+    ).rejects.toThrow(EmailAlreadyRegisteredError);
   });
 
   it("sends a confirmation email", async () => {
