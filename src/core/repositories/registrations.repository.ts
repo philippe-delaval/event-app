@@ -6,7 +6,7 @@ export class RegistrationsRepository {
   async add(fields: {
     event_id: number;
     attendee_id: number;
-    confirmation_hash: string;
+    confirmation_token: string;
   }): Promise<void> {
     await this.knex("registrations").insert(fields);
   }

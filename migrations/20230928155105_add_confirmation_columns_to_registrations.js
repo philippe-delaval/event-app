@@ -4,7 +4,7 @@
  */
 exports.up = function (knex) {
   return knex.schema.alterTable("registrations", (table) => {
-    table.string("confirmation_hash", 60).notNullable();
+    table.string("confirmation_token", 36).notNullable();
     table.boolean("confirmed").notNullable().defaultTo(false);
   });
 };
@@ -15,7 +15,7 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema.alterTable("registrations", (table) => {
-    table.dropColumn("confirmation_hash");
+    table.dropColumn("confirmation_token");
     table.dropColumn("confirmed");
   });
 };

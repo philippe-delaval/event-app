@@ -6,7 +6,7 @@ import {
 } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
 import { AttendeeEmailAlreadyRegisteredError } from "./attendee-email-already-registered.error";
-import { RegistrationConfirmationHash } from "./registration-confirmation-hash";
+import { RegistrationConfirmationToken } from "./registration-confirmation-token";
 
 export async function registerToEventUseCase(
   dependencies: {
@@ -23,9 +23,7 @@ export async function registerToEventUseCase(
 
   await checkEmailUnicity(attendeesRepository, command.email);
 
-  const registrationConfirmationHash = new RegistrationConfirmationHash(
-    command.email,
-  );
+  const registrationConfirmationToken = new RegistrationConfirmationToken();
 
   await saveAttendeeAndRegistration(
     {
@@ -34,14 +32,14 @@ export async function registerToEventUseCase(
     },
     {
       command,
-      registrationConfirmationHash,
+      registrationConfirmationHash: registrationConfirmationToken,
     },
   );
 
   await sendRegistrationConfirmationEmail(
     emailSender,
     command.email,
-    registrationConfirmationHash,
+    registrationConfirmationToken,
   );
 }
 
@@ -64,7 +62,7 @@ async function saveAttendeeAndRegistration(
   },
   options: {
     command: RegistrationCommand;
-    registrationConfirmationHash: RegistrationConfirmationHash;
+    registrationConfirmationHash: RegistrationConfirmationToken;
   },
 ) {
   const { attendeesRepository, registrationsRepository } = dependencies;
@@ -78,14 +76,14 @@ async function saveAttendeeAndRegistration(
   await registrationsRepository.add({
     attendee_id: attendeeId,
     event_id: 1,
-    confirmation_hash: registrationConfirmationHash.toString(),
+    confirmation_token: registrationConfirmationHash.toString(),
   });
 }
 
 async function sendRegistrationConfirmationEmail(
   emailSender: EmailSender,
   attendeeEmail: string,
-  registrationConfirmationHash: RegistrationConfirmationHash,
+  registrationConfirmationHash: RegistrationConfirmationToken,
 ) {
   await emailSender.send({
     to: attendeeEmail,
