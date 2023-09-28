@@ -1,6 +1,6 @@
 services:
   web:
-    image: node:20
+    image: node:18.18.0
     restart: always
     working_dir: /app
     volumes:
@@ -26,7 +26,7 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
   db-setup:
-    image: node:20
+    image: node:18.18.0
     working_dir: /app
     volumes:
       - .:/app
