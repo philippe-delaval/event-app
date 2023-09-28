@@ -42,7 +42,8 @@ services:
     depends_on:
       - db
     environment:
-      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_DB_DRIVER: pgsql
+      ADMINER_DEFAULT_DB_NAME: postgres
   mailcatcher:
     image: schickling/mailcatcher
     ports:
