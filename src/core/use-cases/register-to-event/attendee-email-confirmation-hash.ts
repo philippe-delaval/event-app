@@ -7,7 +7,7 @@ export class AttendeeEmailConfirmationHash {
     this.hash = this.generateHash(attendeeEmail);
   }
 
-  getHash(): string {
+  toString(): string {
     return this.hash;
   }
 

@@ -121,7 +121,7 @@ describe("When an attendee registers for an event", () => {
     ).rejects.toThrow(AttendeeEmailAlreadyRegisteredError);
   });
 
-  it("sends a confirmation email", async () => {
+  it("sends an email with a confirmation link", async () => {
     const attendeeEmail = "toto@titi.fr";
 
     await registerToEventUseCaseTest({
@@ -132,8 +132,13 @@ describe("When an attendee registers for an event", () => {
 
     expect(emailSenderStub.send).toHaveBeenCalledWith({
       to: attendeeEmail,
-      subject: "Confirmation inscription",
-      text: "Merci pour votre inscription !",
+      subject: "Veuillez confirmer votre inscription à l'événement Test Event",
+      html: expect.stringContaining(
+        `
+          <p>
+            Pour la confirmer, veuillez cliquer sur le lien suivant : 
+            <a href="http://localhost:3000/confirmer-inscription/`,
+      ),
     });
   });
 });

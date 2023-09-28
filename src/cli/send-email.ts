@@ -25,7 +25,7 @@ async function sendMail() {
   await sender.send({
     to: process.argv[2],
     subject: process.argv[3],
-    text: process.argv[4],
+    html: process.argv[4],
   });
 }
 

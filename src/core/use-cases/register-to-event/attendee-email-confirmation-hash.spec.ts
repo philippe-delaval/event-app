@@ -5,7 +5,7 @@ it("generates a hash from the attendee email that is not the attendee email", ()
 
   const hash = new AttendeeEmailConfirmationHash(attendeeEmail);
 
-  expect(hash.getHash()).not.toBe(attendeeEmail);
+  expect(hash.toString()).not.toBe(attendeeEmail);
 });
 
 it("generates a hash with a length of 60", () => {
@@ -13,7 +13,7 @@ it("generates a hash with a length of 60", () => {
 
   const hash = new AttendeeEmailConfirmationHash(attendeeEmail);
 
-  expect(hash.getHash()).toHaveLength(60);
+  expect(hash.toString()).toHaveLength(60);
 });
 
 it("generates a hash that is different from another attendee email hash", () => {
@@ -23,5 +23,5 @@ it("generates a hash that is different from another attendee email hash", () => 
   const hash = new AttendeeEmailConfirmationHash(attendeeEmail);
   const anotherHash = new AttendeeEmailConfirmationHash(anotherAttendeeEmail);
 
-  expect(hash.getHash()).not.toBe(anotherHash.getHash());
+  expect(hash.toString()).not.toBe(anotherHash.toString());
 });
