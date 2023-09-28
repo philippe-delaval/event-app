@@ -23,14 +23,19 @@ export async function registerToEventUseCase(
 
   await checkEmailUnicity(attendeesRepository, command);
 
-  await saveAttendeeAndRegistration(
-    attendeesRepository,
-    command,
-    registrationsRepository,
-  );
-
   const registrationConfirmationHash = new RegistrationConfirmationHash(
     command.email,
+  );
+
+  await saveAttendeeAndRegistration(
+    {
+      attendeesRepository,
+      registrationsRepository,
+    },
+    {
+      command,
+      registrationConfirmationHash,
+    },
   );
 
   await emailSender.send({
@@ -59,14 +64,26 @@ async function checkEmailUnicity(
 }
 
 async function saveAttendeeAndRegistration(
-  attendeesRepository: AttendeesRepository,
-  command: RegistrationCommand,
-  registrationsRepository: RegistrationsRepository,
+  dependencies: {
+    attendeesRepository: AttendeesRepository;
+    registrationsRepository: RegistrationsRepository;
+  },
+  options: {
+    command: RegistrationCommand;
+    registrationConfirmationHash: RegistrationConfirmationHash;
+  },
 ) {
+  const { attendeesRepository, registrationsRepository } = dependencies;
+  const { command, registrationConfirmationHash } = options;
+
   const attendeeId = await attendeesRepository.add({
     first_name: command.firstName,
     last_name: command.lastName,
     email: command.email,
   });
-  await registrationsRepository.add(1, attendeeId);
+  await registrationsRepository.add({
+    attendee_id: attendeeId,
+    event_id: 1,
+    confirmation_hash: registrationConfirmationHash.toString(),
+  });
 }

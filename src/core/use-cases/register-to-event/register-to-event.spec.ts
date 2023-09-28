@@ -76,6 +76,8 @@ describe("When an attendee registers for an event", () => {
       {
         event_id: 1,
         attendee_id: 1,
+        confirmation_hash: expect.any(String),
+        confirmed: 0,
       },
     ]);
   });
@@ -97,10 +99,14 @@ describe("When an attendee registers for an event", () => {
       {
         event_id: 1,
         attendee_id: 1,
+        confirmation_hash: expect.any(String),
+        confirmed: 0,
       },
       {
         event_id: 1,
         attendee_id: 2,
+        confirmation_hash: expect.any(String),
+        confirmed: 0,
       },
     ]);
   });
