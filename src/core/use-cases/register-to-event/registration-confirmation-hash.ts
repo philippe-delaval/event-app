@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-export class AttendeeEmailConfirmationHash {
+export class RegistrationConfirmationHash {
   private readonly hash: string;
 
   constructor(attendeeEmail: string) {
