@@ -7,6 +7,7 @@ import {
 import { EmailSender } from "@/core/lib/email-sender.lib";
 import { AttendeeEmailAlreadyRegisteredError } from "./attendee-email-already-registered.error";
 import { RegistrationConfirmationToken } from "./registration-confirmation-token";
+import { getAppUrl } from "@/core/lib/app-url.lib";
 
 export async function registerToEventUseCase(
   dependencies: {
@@ -85,13 +86,15 @@ async function sendRegistrationConfirmationEmail(
   attendeeEmail: string,
   registrationConfirmationHash: RegistrationConfirmationToken,
 ) {
+  const appUrl = getAppUrl();
+
   await emailSender.send({
     to: attendeeEmail,
     subject: "Veuillez confirmer votre inscription à l'événement Test Event",
     html: `
           <p>
             Pour la confirmer, veuillez cliquer sur le lien suivant : 
-            <a href="http://localhost:3000/confirmer-inscription/${registrationConfirmationHash.toString()}">Confirmer l'inscription</a>
+            <a href="${appUrl}/confirmer-inscription/${registrationConfirmationHash.toString()}">Confirmer l'inscription</a>
           </p>
         `,
   });
