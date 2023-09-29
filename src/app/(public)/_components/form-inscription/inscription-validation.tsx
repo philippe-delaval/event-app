@@ -12,10 +12,13 @@ export default function InscriptionValidation() {
         </div>
         <div className="ml-3">
           <h3 className="text-sm font-medium text-green-800">
-            Inscription validée
+            Demande d&apos;inscription envoyée
           </h3>
           <div className="mt-2 text-sm text-green-700">
-            <p>Merci de vous être inscrit, à bientôt !</p>
+            <p>
+              Vous avez reçu un mail avec un lien de confirmation. Merci
+              d&apos;aller cliquer sur ce lien.
+            </p>
           </div>
         </div>
       </div>
