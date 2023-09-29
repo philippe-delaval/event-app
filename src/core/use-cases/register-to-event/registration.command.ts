@@ -36,13 +36,11 @@ export class RegistrationCommand {
   }
 
   private validateDto(): void {
-    this.commandDto = z
-      .object({
-        firstName: this.getAttendeeNameValidator(),
-        lastName: this.getAttendeeNameValidator(),
-        email: z.string().regex(EMAIL_REGEX),
-      })
-      .parse(this.commandDto);
+    z.object({
+      firstName: this.getAttendeeNameValidator(),
+      lastName: this.getAttendeeNameValidator(),
+      email: z.string().regex(EMAIL_REGEX),
+    }).parse(this.commandDto);
   }
 
   private getAttendeeNameValidator() {

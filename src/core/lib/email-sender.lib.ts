@@ -11,10 +11,11 @@ export class EmailSender {
     this.transporter = createTransport(this.transporterConfig);
   }
 
-  async send(params: { to: string; subject: string; text: string }) {
+  async send(params: { to: string; subject: string; html: string }) {
     return this.transporter.sendMail({
       from: this.transporterConfig.auth!.user,
       ...params,
+      html: params.html,
     });
   }
 

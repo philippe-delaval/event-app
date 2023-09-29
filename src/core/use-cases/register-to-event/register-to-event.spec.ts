@@ -5,7 +5,7 @@ import { AttendeesRepository } from "@/core/repositories/attendees.repository";
 import { RegistrationsRepository } from "@/core/repositories/registrations.repository";
 import { RegistrationCommandDto } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
-import { EmailAlreadyRegisteredError } from "./email-already-registered.error";
+import { AttendeeEmailAlreadyRegisteredError } from "./attendee-email-already-registered.error";
 
 let knexClient: Knex;
 let emailSenderStub: EmailSender;
@@ -76,6 +76,8 @@ describe("When an attendee registers for an event", () => {
       {
         event_id: 1,
         attendee_id: 1,
+        confirmation_token: expect.any(String),
+        confirmed: 0,
       },
     ]);
   });
@@ -97,10 +99,14 @@ describe("When an attendee registers for an event", () => {
       {
         event_id: 1,
         attendee_id: 1,
+        confirmation_token: expect.any(String),
+        confirmed: 0,
       },
       {
         event_id: 1,
         attendee_id: 2,
+        confirmation_token: expect.any(String),
+        confirmed: 0,
       },
     ]);
   });
@@ -118,10 +124,10 @@ describe("When an attendee registers for an event", () => {
         lastName: "Bar",
         email: "toto@titi.fr",
       }),
-    ).rejects.toThrow(EmailAlreadyRegisteredError);
+    ).rejects.toThrow(AttendeeEmailAlreadyRegisteredError);
   });
 
-  it("sends a confirmation email", async () => {
+  it("sends an email with a confirmation link", async () => {
     const attendeeEmail = "toto@titi.fr";
 
     await registerToEventUseCaseTest({
@@ -132,8 +138,13 @@ describe("When an attendee registers for an event", () => {
 
     expect(emailSenderStub.send).toHaveBeenCalledWith({
       to: attendeeEmail,
-      subject: "Confirmation inscription",
-      text: "Merci pour votre inscription !",
+      subject: "Veuillez confirmer votre inscription à l'événement Test Event",
+      html: expect.stringContaining(
+        `
+          <p>
+            Pour la confirmer, veuillez cliquer sur le lien suivant : 
+            <a href="http://localhost:3000/confirmer-inscription/`,
+      ),
     });
   });
 });
