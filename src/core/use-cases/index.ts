@@ -1,9 +1,6 @@
 import { EmailSender } from "../lib/email-sender.lib";
 import { CoreRepositoriesLive } from "../repositories";
-import {
-  ConfirmRegistrationCommand,
-  ConfirmRegistrationCommandDto,
-} from "./confirm-registration/confirm-registration.command";
+import { ConfirmRegistrationCommandDto } from "./confirm-registration/confirm-registration.command";
 import { confirmRegistrationUseCase } from "./confirm-registration/confirm-registration.use-case";
 import { getNextAppEventUseCase } from "./get-next-app-event.use-case";
 import { registerToEventUseCase } from "./register-to-event/register-to-event.use-case";
@@ -28,6 +25,7 @@ export const CoreUseCasesLive = {
   confirmRegistration: (commandDto: ConfirmRegistrationCommandDto) =>
     confirmRegistrationUseCase(
       {
+        registrationsRepository: CoreRepositoriesLive.registrationsRepository,
         emailSender,
       },
       commandDto,
