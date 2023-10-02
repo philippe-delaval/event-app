@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 
 module.exports = {
   content: [
@@ -10,8 +10,8 @@ module.exports = {
     extend: {
       colors: {
         "background-grey": "#FBFBFD",
-        "primary-orange": "#EE7408",
-        "secondary-orange": "#DA6308",
+        "primary-orange": "#93C01F",
+        "secondary-orange": "#7CAB17",
         "primary-gray": "#545454",
       },
       fontFamily: {
