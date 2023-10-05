@@ -6,6 +6,7 @@ import { RegistrationsRepository } from "@/core/repositories/registrations.repos
 import { RegistrationCommandDto } from "./registration.command";
 import { EmailSender } from "@/core/lib/email-sender.lib";
 import { AttendeeEmailAlreadyRegisteredError } from "./attendee-email-already-registered.error";
+import { generateQRCode } from "@/core/lib/qrcode.lib";
 
 let knexClient: Knex;
 let emailSenderStub: EmailSender;
@@ -146,6 +147,20 @@ describe("When an attendee registers for an event", () => {
             <a href="http://localhost:3000/confirmer-inscription/`,
       ),
     });
+  });
+
+  it("generates a QR code", async () => {
+    const attendeeId = 2;
+    const eventId = 1;
+    const expectedQRCodeData = await generateQRCode(`${attendeeId}-${eventId}`);
+
+    await knexClient("registrations").insert({
+      attendee_id: attendeeId,
+      event_id: eventId,
+      confirmation_token: "",
+    });
+
+    expect(expectedQRCodeData).toMatch(/^[A-Za-z0-9+/]+={0,2}$/);
   });
 });
 
