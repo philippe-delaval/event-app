@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 interface CountdownProps {
   targetDate: string;
 }
+
 const Countdown = ({ targetDate }: CountdownProps) => {
   const [time, setTime] = useState({
     days: 0,
@@ -63,9 +64,9 @@ const Countdown = ({ targetDate }: CountdownProps) => {
             role="timer"
             aria-label={`Compte à rebours jusqu'à l'évènement en date du ${targetDate}`}
           >
-            <div className="justify-center m-1">
+            <div className="box-border p-2 m-1">
               <div
-                className="text-2xl sm:text-5xl font-bold text-black"
+                className="text-1xl sm:text-5xl font-bold text-black"
                 aria-label={`${time.days} jours`}
               >
                 {addLeadingZero(time.days)}
@@ -76,9 +77,9 @@ const Countdown = ({ targetDate }: CountdownProps) => {
               </div>
             </div>
 
-            <div className="m-1">
+            <div className="box-border p-2 m-1">
               <div
-                className="text-2xl sm:text-5xl font-bold text-black"
+                className="text-1xl sm:text-5xl font-bold text-black"
                 aria-label={`${time.hours} heures`}
               >
                 {addLeadingZero(time.hours)}
@@ -89,9 +90,9 @@ const Countdown = ({ targetDate }: CountdownProps) => {
               </div>
             </div>
 
-            <div className="m-1">
+            <div className="box-border p-2 m-1">
               <div
-                className="text-2xl sm:text-5xl font-bold text-black"
+                className="text-1xl sm:text-5xl font-bold text-black"
                 aria-label={`${time.minutes} minutes`}
               >
                 {addLeadingZero(time.minutes)}
@@ -102,9 +103,9 @@ const Countdown = ({ targetDate }: CountdownProps) => {
               </div>
             </div>
 
-            <div className="m-1">
+            <div className="box-border p-2 m-1">
               <div
-                className="text-2xl sm:text-5xl font-bold text-black"
+                className="text-1xl sm:text-5xl font-bold text-black"
                 aria-label={`${time.seconds} secondes`}
               >
                 {addLeadingZero(time.seconds)}
