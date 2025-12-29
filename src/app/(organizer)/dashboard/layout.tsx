@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Fragment, useState } from "react";
+import Image from "next/image";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -41,18 +42,45 @@ interface UserNavigationItem {
 }
 
 const navigation: NavigationItem[] = [
-  { name: "Tableau de bord", href: "#", icon: HomeIcon, current: true },
-  { name: "Administrateurs", href: "#", icon: UsersIcon, current: false },
-  { name: "Base de données", href: "#", icon: FolderIcon, current: false },
-  { name: "Evenements", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Statistiques", href: "#", icon: ChartPieIcon, current: false },
+  { name: "Tableau de bord", href: "/dashboard", icon: HomeIcon, current: false },
+  {
+    name: "Administrateurs",
+    href: "/dashboard/administrateurs",
+    icon: UsersIcon,
+    current: false,
+  },
+  {
+    name: "Base de données",
+    href: "http://localhost:8080",
+    icon: FolderIcon,
+    current: false,
+  },
+  {
+    name: "Evenements",
+    href: "/dashboard/events",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Documents",
+    href: "/dashboard/documents",
+    icon: DocumentDuplicateIcon,
+    current: false,
+  },
+  {
+    name: "Participants",
+    href: "/dashboard/participants",
+    icon: UsersIcon,
+    current: false,
+  },
+  {
+    name: "Statistiques",
+    href: "/dashboard/statistiques",
+    icon: ChartPieIcon,
+    current: false,
+  },
 ];
-const teams: Team[] = [
-  { id: 1, name: "Jean Claude", href: "#", initial: "JC", current: false },
-  { id: 2, name: "Paul Decors", href: "#", initial: "PD", current: false },
-  { id: 3, name: "Annie Poulie", href: "#", initial: "AP", current: false },
-];
+const teams: Team[] = [];
 const userNavigation: UserNavigationItem[] = [
   { name: "Votre Profil", href: "#" },
   { name: "Déconnexion", href: "#" },
@@ -62,7 +90,11 @@ function classNames(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dashboard() {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -120,13 +152,15 @@ export default function Dashboard() {
                       </button>
                     </div>
                   </Transition.Child>
-                  {/* Sidebar _component, swap this element with another sidebar if you like */}
+                  {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                     <div className="flex h-16 shrink-0 items-center">
-                      <img
+                      <Image
                         className="h-8 w-auto"
                         src="/assets/logo.svg"
                         alt="Logo Apero Dev"
+                        width={120}
+                        height={32}
                       />
                     </div>
                     <nav className="flex flex-1 flex-col">
@@ -147,8 +181,8 @@ export default function Dashboard() {
                                   <item.icon
                                     className={classNames(
                                       item.current
-                                        ? "text-primary-orange"
-                                        : "text-gray-400 group-hover:text-primary-orange",
+                                        ? "text-primary"
+                                        : "text-gray-400 group-hover:text-primary",
                                       "h-6 w-6 shrink-0",
                                     )}
                                     aria-hidden="true"
@@ -170,16 +204,16 @@ export default function Dashboard() {
                                   href={team.href}
                                   className={classNames(
                                     team.current
-                                      ? "bg-gray-50 text-primary-orange"
-                                      : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
+                                      ? "bg-gray-50 text-primary"
+                                      : "text-gray-700 hover:text-primary hover:bg-gray-50",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                                   )}
                                 >
                                   <span
                                     className={classNames(
                                       team.current
-                                        ? "text-primary-orange border-primary-orange"
-                                        : "text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-primary-orange",
+                                        ? "text-primary border-primary"
+                                        : "text-gray-400 border-gray-200 group-hover:border-primary group-hover:text-primary",
                                       "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                                     )}
                                   >
@@ -194,10 +228,10 @@ export default function Dashboard() {
                         <li className="mt-auto">
                           <a
                             href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-primary-orange"
+                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-primary"
                           >
                             <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-primary-orange"
+                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-primary"
                               aria-hidden="true"
                             />
                             Paramètres
@@ -217,10 +251,12 @@ export default function Dashboard() {
           {/* Composant Sidebar, remplacez dans cet élément pour la modifier. */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
-              <img
+              <Image
                 className="h-8 w-auto"
                 src="/assets/logo.svg"
                 alt="No Name Company"
+                width={120}
+                height={32}
               />
             </div>
             <nav className="flex flex-1 flex-col">
@@ -234,15 +270,15 @@ export default function Dashboard() {
                           className={classNames(
                             item.current
                               ? "bg-gray-50 text-primary-gray"
-                              : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
+                              : "text-gray-700 hover:text-primary hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <item.icon
                             className={classNames(
                               item.current
-                                ? "text-primary-orange"
-                                : "text-gray-400 group-hover:text-primary-orange",
+                                ? "text-primary"
+                                : "text-gray-400 group-hover:text-primary",
                               "h-6 w-6 shrink-0",
                             )}
                             aria-hidden="true"
@@ -265,15 +301,15 @@ export default function Dashboard() {
                           className={classNames(
                             team.current
                               ? "bg-gray-50 text-primary-gray"
-                              : "text-gray-700 hover:text-primary-orange hover:bg-gray-50",
+                              : "text-gray-700 hover:text-primary hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <span
                             className={classNames(
                               team.current
-                                ? "text-primary-orange border-primary-orange"
-                                : "text-gray-400 border-gray-200 group-hover:border-primary-orange group-hover:text-primary-orange",
+                                ? "text-primary border-primary"
+                                : "text-gray-400 border-gray-200 group-hover:border-primary group-hover:text-primary",
                               "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                             )}
                           >
@@ -288,10 +324,10 @@ export default function Dashboard() {
                 <li className="mt-auto">
                   <a
                     href="#"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-primary-orange"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-primary"
                   >
                     <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-primary-orange"
+                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-primary"
                       aria-hidden="true"
                     />
                     Paramètres
@@ -355,17 +391,19 @@ export default function Dashboard() {
                 <Menu as="div" className="relative">
                   <Menu.Button className="-m-1.5 flex items-center p-1.5">
                     <span className="sr-only">Open user menu</span>
-                    <img
+                    <Image
                       className="h-8 w-8 rounded-full bg-gray-50"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
+                      width={32}
+                      height={32}
                     />
                     <span className="hidden lg:flex lg:items-center">
                       <span
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
-                        Tom Cook
+                        Organisateur
                       </span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"
@@ -405,9 +443,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">{/* Your content */}</div>
-          </main>
+          <main className="py-10">{children}</main>
         </div>
       </div>
     </>

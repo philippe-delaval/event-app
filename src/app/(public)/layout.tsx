@@ -8,10 +8,13 @@ export default function HomePageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Navigation />
-      <section>{children}</section>
-      <Footer />
-    </>
+    <div className="flex flex-col min-h-screen">
+      {/* AdBanner removed to match new design */}
+      <div className="relative flex-1">
+        <Navigation />
+        <section>{children}</section>
+        <Footer />
+      </div>
+    </div>
   );
 }

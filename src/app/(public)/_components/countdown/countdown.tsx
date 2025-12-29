@@ -52,7 +52,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
   };
 
   return (
-    <div className="bg-background-grey px-6 py-12 sm:py-24 lg:px-8">
+    <div className="bg-background px-6 py-12 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Temps restant avant l&#39;événement
@@ -71,7 +71,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
                 {addLeadingZero(time.days)}
               </div>
 
-              <div className="text-xs sm:text-sm text-primary-orange">
+              <div className="text-xs sm:text-sm text-primary">
                 Jours
               </div>
             </div>
@@ -84,7 +84,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
                 {addLeadingZero(time.hours)}
               </div>
 
-              <div className="text-xs sm:text-sm text-primary-orange">
+              <div className="text-xs sm:text-sm text-primary">
                 Heures
               </div>
             </div>
@@ -97,7 +97,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
                 {addLeadingZero(time.minutes)}
               </div>
 
-              <div className="text-xs sm:text-sm text-primary-orange">
+              <div className="text-xs sm:text-sm text-primary">
                 Minutes
               </div>
             </div>
@@ -110,7 +110,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
                 {addLeadingZero(time.seconds)}
               </div>
 
-              <div className="text-xs sm:text-sm text-primary-orange">
+              <div className="text-xs sm:text-sm text-primary">
                 Secondes
               </div>
             </div>

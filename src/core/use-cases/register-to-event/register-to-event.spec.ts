@@ -61,6 +61,9 @@ describe("When an attendee registers for an event", () => {
         first_name: "Foo",
         last_name: "Bar",
         email: "toto@titi.fr",
+        company: null,
+        job_title: null,
+        marketing_consent: null,
       },
     ]);
   });
@@ -79,6 +82,7 @@ describe("When an attendee registers for an event", () => {
         attendee_id: 1,
         confirmation_token: expect.any(String),
         confirmed: 0,
+        status: "PENDING",
       },
     ]);
   });
@@ -102,12 +106,14 @@ describe("When an attendee registers for an event", () => {
         attendee_id: 1,
         confirmation_token: expect.any(String),
         confirmed: 0,
+        status: "PENDING",
       },
       {
         event_id: 1,
         attendee_id: 2,
         confirmation_token: expect.any(String),
         confirmed: 0,
+        status: "PENDING",
       },
     ]);
   });

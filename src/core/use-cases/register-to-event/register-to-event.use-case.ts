@@ -73,6 +73,9 @@ async function saveAttendeeAndRegistration(
     first_name: command.firstName,
     last_name: command.lastName,
     email: command.email,
+    job_title: command.jobTitle,
+    company: command.company,
+    marketing_consent: command.marketingConsent,
   });
   await registrationsRepository.add({
     attendee_id: attendeeId,
