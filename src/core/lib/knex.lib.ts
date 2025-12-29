@@ -1,18 +1,28 @@
 import { Knex, knex } from "knex";
 import { getEnvVariable } from "./env.lib";
 
-let knexClient: Knex;
+declare global {
+  // eslint-disable-next-line no-var
+  var knexClient: (Knex & { clientId?: number }) | undefined;
+}
 
 export function getKnexClient(): Knex {
-  if (!knexClient) {
-    if (process.env.NODE_ENV === "test") {
-      knexClient = makeTestKnexClient();
-    } else {
-      knexClient = makeKnexClient();
-    }
+  if (process.env.NODE_ENV === "test") {
+    return makeTestKnexClient();
   }
 
-  return knexClient;
+  if (!globalThis.knexClient) {
+    const clientId = Math.floor(Math.random() * 10000);
+    console.log(`[Knex] Creating new client (ID: ${clientId})...`);
+    globalThis.knexClient = makeKnexClient();
+    globalThis.knexClient.clientId = clientId;
+  } else {
+    console.log(
+      `[Knex] Reusing existing client (ID: ${globalThis.knexClient.clientId}).`
+    );
+  }
+
+  return globalThis.knexClient;
 }
 
 export function makeTestKnexClient(): Knex {
@@ -33,6 +43,12 @@ function makeKnexClient(): Knex {
       ssl: {
         rejectUnauthorized: false,
       },
+    },
+    pool: {
+      min: 0,
+      max: 1,
+      idleTimeoutMillis: 1000,
+      reapIntervalMillis: 1000,
     },
     searchPath: ["knex", "public"],
   });

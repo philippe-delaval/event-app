@@ -11,6 +11,9 @@ export async function formInscriptionAction(
       firstName: formData.get("first-name")?.toString() ?? "",
       lastName: formData.get("last-name")?.toString() ?? "",
       email: formData.get("email")?.toString() ?? "",
+      jobTitle: formData.get("job-title")?.toString() ?? "",
+      company: formData.get("company")?.toString() ?? "",
+      marketingConsent: formData.get("marketing-consent") === "on",
     });
   } catch (error) {
     if (error instanceof ZodError) {

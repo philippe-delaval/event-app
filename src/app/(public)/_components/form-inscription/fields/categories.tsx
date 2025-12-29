@@ -20,7 +20,7 @@ export default function Categories() {
                   id="senior"
                   name="categories"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="senior"
@@ -34,7 +34,7 @@ export default function Categories() {
                   id="etudiants"
                   name="categories"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="etudiants"
@@ -48,7 +48,7 @@ export default function Categories() {
                   id="reconversion"
                   name="categories"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="reconversion"
