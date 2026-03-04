@@ -20,7 +20,7 @@ export default function Experiences() {
                   id="start"
                   name="experience"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="start"
@@ -34,7 +34,7 @@ export default function Experiences() {
                   id="moins-3"
                   name="experience"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="moins-3"
@@ -48,7 +48,7 @@ export default function Experiences() {
                   id="plus-5"
                   name="experience"
                   type="radio"
-                  className="h-4 w-4 border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 border-gray-300 text-primary focus:ring-primary-hover"
                 />
                 <label
                   htmlFor="plus-5"

@@ -8,16 +8,25 @@ export class AttendeesRepository {
     first_name,
     last_name,
     email,
+    job_title,
+    company,
+    marketing_consent,
   }: {
     first_name: string;
     last_name: string;
     email: string;
+    job_title?: string;
+    company?: string;
+    marketing_consent?: boolean;
   }): Promise<number> {
     const attendeeIds = await this.knex("attendees")
       .insert({
         first_name,
         last_name,
         email,
+        job_title,
+        company,
+        marketing_consent,
       })
       .returning("id");
 

@@ -20,7 +20,7 @@ export default function Languages() {
                   id="magento"
                   name="magento"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -35,7 +35,7 @@ export default function Languages() {
                   id="symphony"
                   name="symphony"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -50,7 +50,7 @@ export default function Languages() {
                   id="php"
                   name="php"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -65,7 +65,7 @@ export default function Languages() {
                   id="tailwind"
                   name="tailwind"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -80,7 +80,7 @@ export default function Languages() {
                   id="alpine"
                   name="alpine"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -95,7 +95,7 @@ export default function Languages() {
                   id="react"
                   name="react"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">
@@ -110,7 +110,7 @@ export default function Languages() {
                   id="vue"
                   name="vue"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary-orange focus:ring-secondary-orange"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-hover"
                 />
               </div>
               <div className="text-sm leading-6">

@@ -39,8 +39,8 @@ export default function Approuval() {
               checked={enabled2}
               onChange={setEnabled2}
               className={classNames(
-                enabled2 ? "bg-primary-orange" : "bg-gray-200",
-                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-secondary-orange focus:ring-offset-2",
+                enabled2 ? "bg-primary" : "bg-gray-200",
+                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-hover focus:ring-offset-2",
               )}
             >
               <span className="sr-only">Utiliser le réglage</span>
@@ -83,7 +83,7 @@ export default function Approuval() {
                   aria-hidden="true"
                 >
                   <svg
-                    className="h-3 w-3 text-primary-orange"
+                    className="h-3 w-3 text-primary"
                     fill="currentColor"
                     viewBox="0 0 12 12"
                   >

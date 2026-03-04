@@ -1,109 +1,62 @@
 "use client";
 
-import React, { useState } from "react";
-import { Dialog, Popover } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import React, { useState } from 'react';
+import { Calendar, Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
-export default function Navigation(): React.ReactElement {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-background-grey">
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-        aria-label="Global"
-      >
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Apéro Dev</span>
-            <img className="h-8 w-auto" src="/assets/logo.svg" alt="" />
-          </Link>
+    <nav className="fixed top-0 left-0 right-0 bg-white backdrop-blur-md z-50 border-b border-slate-100">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+            <Calendar className="text-white w-5 h-5" />
+          </div>
+          <span className="text-xl font-bold text-slate-900 tracking-tight">EventPro</span>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8">
+          <Link href="/explore" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Explorer</Link>
+          <Link href="/tarifs" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Tarifs</Link>
+          <Link href="/contact" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Aide</Link>
         </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Ouvrir le menu principal</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Link
-            href="/"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Accueil
-          </Link>
 
-          <Link
-            href="/oldevents"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Anciennes éditions
-          </Link>
-
-          <Link
-            href="/contact"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Nous contacter
-          </Link>
-        </Popover.Group>
-      </nav>
-
-      <Dialog
-        as="div"
-        className="lg:hidden"
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-      >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Apéro Dev</span>
-              <img className="h-8 w-auto" src="/assets/logo.svg" alt="" />
-            </Link>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Fermer le menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+        <div className="hidden md:flex items-center gap-4">
+          <Link href="/login">
+            <button className="text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2">
+              Se connecter
             </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Link
-                  href="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Accueil
-                </Link>
+          </Link>
+          <Link href="/dashboard">
+            <button className="bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-900/10">
+              Créer un événement
+            </button>
+          </Link>
+        </div>
 
-                <Link
-                  href="/oldevents"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Anciennes éditions
-                </Link>
+        {/* Mobile Toggle */}
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-slate-600">
+          {isOpen ? <X /> : <Menu />}
+        </button>
+      </div>
 
-                <Link
-                  href="/contact"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Nous contacter
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
-    </header>
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white border-b border-slate-100 p-6 space-y-4 animate-in slide-in-from-top-5">
+          <Link href="/explore" className="block text-slate-600 font-medium" onClick={() => setIsOpen(false)}>Explorer</Link>
+          <Link href="/tarifs" className="block text-slate-600 font-medium" onClick={() => setIsOpen(false)}>Tarifs</Link>
+          <hr className="border-slate-100" />
+          <Link href="/login" className="w-full" onClick={() => setIsOpen(false)}>
+            <button className="w-full text-left font-medium text-slate-900">Se connecter</button>
+          </Link>
+          <Link href="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
+            <button className="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium">Créer un événement</button>
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 }
